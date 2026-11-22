@@ -10,3 +10,4 @@ web/src/**/*.test.js
 Dockerfile
 docker-compose*.yml
 .github
+docs

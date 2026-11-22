@@ -14,6 +14,8 @@
 
 </div>
 
+![Goals and tickets board in Aisty Community](docs/board.png)
+
 Your team sets goals, Aisty suggests the tickets that move them, and an AI
 agent carries them out across GitHub, Jira, Slack, Gmail and HubSpot. Every
 change it wants to make waits for a person first, and everything it did is

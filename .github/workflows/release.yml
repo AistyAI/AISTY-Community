@@ -101,6 +101,13 @@ jobs:
           Or download \`docker-compose.yml\` and \`.env.example\` below and follow the [quick start](https://github.com/${GITHUB_REPOSITORY}#quick-start).
           EOF
           cp .env.example env.example
-          gh release create "$GITHUB_REF_NAME" --title "Aisty Community $GITHUB_REF_NAME" \
-            --generate-notes --notes-file notes.md $prerelease \
-            docker-compose.yml "env.example#.env.example"
+          # A release published from the GitHub UI already exists: add the assets and install notes to it.
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" docker-compose.yml "env.example#.env.example" --clobber
+            { gh release view "$GITHUB_REF_NAME" --json body -q .body; echo; echo; cat notes.md; } > full.md
+            gh release edit "$GITHUB_REF_NAME" --notes-file full.md
+          else
+            gh release create "$GITHUB_REF_NAME" --title "Aisty Community $GITHUB_REF_NAME" \
+              --generate-notes --notes-file notes.md $prerelease \
+              docker-compose.yml "env.example#.env.example"
+          fi

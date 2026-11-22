@@ -81,7 +81,7 @@ jobs:
 
       # Attestations need a public repository (or GitHub Enterprise) and are skipped otherwise.
       - if: ${{ !github.event.repository.private }}
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v4
         with:
           subject-name: ${{ env.IMAGE }}
           subject-digest: ${{ steps.build.outputs.digest }}

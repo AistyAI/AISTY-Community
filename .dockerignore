@@ -1,0 +1,12 @@
+**/node_modules
+web/build
+.env
+.env.*
+!.env.example
+.git
+**/*.log
+api/test
+web/src/**/*.test.js
+Dockerfile
+docker-compose*.yml
+.github

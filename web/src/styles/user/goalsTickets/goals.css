@@ -1,0 +1,204 @@
+/* ENHANCED GOALS SECTION */
+
+.goalsTickets__goalsSection {
+    margin-top: 1.5rem;
+    padding: 0;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+
+.goalsTickets__goalsSectionHeader {
+    margin-bottom: 1rem;
+}
+
+.goalsTickets__goalsSectionHeader h2 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.goalsTickets__goalsSectionSubtitle {
+    margin: 0;
+    color: var(--text-faint);
+    font-size: 0.85rem;
+}
+
+.goalsTickets__goalsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.goalsTickets__goalCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-xs);
+}
+
+.goalsTickets__goalCard:hover {
+    border-color: var(--border-color-strong);
+    box-shadow: var(--shadow-sm);
+}
+
+.goalsTickets__goalCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.goalsTickets__goalCardInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.goalsTickets__goalCardTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    border: none;
+    border-bottom: 2px solid var(--border-color);
+    padding: 0.5rem 0;
+    background: transparent;
+    transition: border-color var(--transition-normal);
+    cursor: text;
+}
+
+.goalsTickets__goalCardTitle:focus {
+    outline: none;
+    border-bottom-color: var(--accent-color);
+}
+
+.goalsTickets__goalCardMeta {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.goalsTickets__goalCardDelete {
+    background: transparent;
+    border: none;
+    color: var(--text-faint);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: all var(--transition-normal);
+    height: fit-content;
+}
+
+.goalsTickets__goalCardDelete:hover {
+    color: var(--danger-color);
+    background: var(--danger-bg);
+    border-radius: 4px;
+}
+
+.goalsTickets__goalCardDesc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    border: none;
+    background: var(--bg-surface);
+    border-radius: 8px;
+    padding: 0.75rem;
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+    transition: background var(--transition-normal);
+}
+
+.goalsTickets__goalCardDesc:focus {
+    outline: none;
+    background: var(--bg-white);
+    border: 2px solid var(--accent-color);
+    padding: calc(0.75rem - 1px);
+}
+
+.goalsTickets__goalCardTarget {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.6rem 0.75rem;
+    background: var(--bg-surface);
+    transition: all var(--transition-normal);
+    font-style: italic;
+}
+
+.goalsTickets__goalCardTarget:focus {
+    outline: none;
+    background: var(--bg-white);
+    border-color: var(--accent-color);
+    box-shadow: var(--focus-shadow);
+}
+
+.goalsTickets__addGoalBtn {
+    background: var(--bg-white);
+    border: 2px dashed var(--border-color-strong);
+    color: var(--accent-color);
+    padding: 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    width: fit-content;
+}
+
+.goalsTickets__addGoalBtn:hover {
+    border-color: var(--accent-color);
+    background: var(--accent-color-light);
+}
+
+.goalsTickets__emptyState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    background: var(--bg-surface);
+    border: 2px dashed var(--border-color-strong);
+    border-radius: 12px;
+    padding: 3rem;
+}
+
+.goalsTickets__emptyStateContent {
+    text-align: center;
+    max-width: 400px;
+}
+
+.goalsTickets__emptyStateContent h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.goalsTickets__emptyStateContent p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.goalsTickets__emptyStateBtn {
+    background: var(--accent-color);
+    color: var(--bg-white);
+    border: none;
+    padding: 0.75rem 1.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.goalsTickets__emptyStateBtn:hover {
+    background: var(--accent-color-hover);
+    box-shadow: 0 4px 12px var(--accent-color-shadow);
+}

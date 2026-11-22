@@ -1,0 +1,136 @@
+/* Every top-level tab view. */
+.home,
+.goalsTickets,
+.integrationsPage,
+.settings-page,
+.team-page,
+.auditTrail,
+.chatHistoryPage {
+    width: 100%;
+    max-width: var(--page-max-width);
+    margin-inline: auto;
+    padding: var(--page-gutter);
+    /* Vertical rhythm between the sections a view stacks. */
+    box-sizing: border-box;
+}
+
+@media (max-width: 720px) {
+    .home,
+    .goalsTickets,
+    .integrationsPage,
+    .settings-page,
+    .team-page,
+    .auditTrail,
+    .chatHistoryPage {
+        padding: var(--page-gutter-sm);
+    }
+}
+
+/* The Goals board scrolls horizontally in kanban mode and manages its own height; the frame gives it the same margins as every other tab without taking that away. */
+.goalsTickets {
+    height: auto;
+    min-height: 100%;
+}
+
+/* Chat History stays narrow: a single column of titles. */
+.chatHistoryPage__header,
+.chatHistoryPage__list {
+    max-width: 760px;
+    /* Centred, not flush left. */
+    margin-inline: auto;
+    width: 100%;
+}
+
+/* Page titles The page name is the same object on every tab, so it renders at one size regardless of which heading level a given view happens to use. */
+.goalsTickets__header h2,
+.integrationsPage > h2,
+.settings-page > h2,
+.team-page > .team-section-header:first-of-type h2,
+.auditTrail__hero h2,
+.chatHistoryPage__title {
+    font-size: var(--page-title-size);
+    font-weight: var(--page-title-weight);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* The one-line description under a page title. */
+.auditTrail__heroText p,
+.integrationsPage > p.secondary-text,
+.team-page > .team-section-header:first-of-type p.secondary-text {
+    font-size: var(--page-lede-size);
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: var(--space-1) 0 0;
+    max-width: 68ch;
+}
+
+/* Page header block Title left, actions right, consistent space beneath. */
+.auditTrail__hero,
+.goalsTickets__header,
+.team-page > .team-section-header:first-of-type {
+    margin-bottom: var(--page-block-space);
+}
+
+/* Reduced motion Views animate list and card entry independently; honour the OS setting uniformly rather than per view. */
+@media (prefers-reduced-motion: reduce) {
+    .home *,
+    .goalsTickets *,
+    .integrationsPage *,
+    .settings-page *,
+    .team-page *,
+    .auditTrail *,
+    .chatHistoryPage * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* In-page tabs */
+.settings-tabs,
+.auditTrail__tabs {
+    display: flex;
+    gap: var(--space-1);
+    margin: 0 0 var(--space-4);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-tab,
+.auditTrail__tab {
+    appearance: none;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    /* Pulls the 2px indicator down onto the bar's own 1px border so the active underline sits flush with it instead of floating above. */
+    margin-bottom: -1px;
+    padding: var(--space-3) var(--space-4);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.settings-tab:hover,
+.auditTrail__tab:hover {
+    color: var(--text-primary);
+}
+
+.settings-tab.is-active,
+.auditTrail__tab--active {
+    color: var(--text-primary);
+    border-bottom-color: var(--primary-color);
+}
+
+/* Keyboard users were getting the browser default outline on one bar and nothing distinguishable on the other. */
+.settings-tab:focus-visible,
+.auditTrail__tab:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-shadow);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}

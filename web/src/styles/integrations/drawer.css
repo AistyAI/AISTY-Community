@@ -1,0 +1,320 @@
+/* Drawer */
+.drawerOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--overlay-bg, rgba(15, 23, 42, 0.35));
+    display: flex;
+    justify-content: flex-end;
+    animation: drawerFade var(--transition-normal);
+}
+
+.drawer {
+    width: min(480px, 100vw);
+    height: 100%;
+    background: var(--bg-white);
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    flex-direction: column;
+    animation: drawerSlide 0.22s ease-out;
+}
+
+@keyframes drawerFade { from { opacity: 0; } }
+@keyframes drawerSlide { from { transform: translateX(24px); } }
+
+@media (prefers-reduced-motion: reduce) {
+    .drawerOverlay, .drawer { animation: none; }
+}
+
+.drawer__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-5) var(--space-5) var(--space-4);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.drawer__logo {
+    width: 40px;
+    height: 40px;
+}
+
+.drawer__titles {
+    flex: 1;
+    min-width: 0;
+}
+
+.drawer__titles h3 {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.drawer__category {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.drawer__close {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--bg-muted);
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.drawer__close:hover {
+    color: var(--text-primary);
+    background: var(--bg-surface);
+}
+
+.drawer__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+.drawer__description {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.drawerSection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.drawerSection--muted {
+    padding: var(--space-4);
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+}
+
+.drawerSection__hint {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+.capabilityList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.capabilityList li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 0.86rem;
+    color: var(--text-primary);
+}
+
+.capabilityList li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 5px;
+    width: 10px;
+    height: 6px;
+    border-left: 2px solid var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+    transform: rotate(-45deg);
+}
+
+.notice {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    background: var(--warning-bg-light);
+    color: var(--warning-color-dark);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.notice--danger {
+    background: var(--danger-bg-light);
+    color: var(--danger-color-dark);
+}
+
+.notice--info {
+    background: var(--info-bg-light);
+    color: var(--info-color-dark);
+}
+
+.connectionSummary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+}
+
+.connectionSummary__title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+}
+
+.connectionSummary__meta {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    overflow-wrap: anywhere;
+}
+
+.connectionSummary__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.drawerSection > .linkButton {
+    align-self: flex-start;
+}
+
+/* Forms */
+.connectorForm {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.connectorForm__help {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+.connectorForm__check {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.86rem;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.connectorForm__check input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color);
+}
+
+.connectorForm__area textarea {
+    font-family: ui-monospace, monospace;
+    font-size: 0.78rem;
+}
+
+.connectorForm__file {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color-hover);
+    cursor: pointer;
+}
+
+.connectorForm__file input {
+    display: none;
+}
+
+.connectorForm__error {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--danger-color-dark);
+}
+
+.connectorForm__actions {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.copyField code {
+    display: block;
+    margin-top: 4px;
+    padding: 6px 8px;
+    background: var(--bg-muted);
+    border-radius: var(--radius-sm);
+    font: 0.74rem/1.4 ui-monospace, monospace;
+    color: var(--text-primary);
+    overflow-wrap: anywhere;
+    user-select: all;
+}
+
+.copyField__label {
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: none;
+}
+
+.copyField__row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+}
+
+.copyField__row code {
+    flex: 1;
+    margin-top: 0;
+    background: var(--bg-white);
+}
+
+/* Mailboxes */
+
+@media (max-width: 720px) {
+    .integrationsHeader {
+        align-items: flex-start;
+    }
+
+    .connectorToolbar .segmented {
+        width: 100%;
+    }
+
+    .connectorToolbar .segmented__item {
+        flex: 1;
+    }
+
+    .categoryChips {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        margin-inline: calc(var(--page-gutter-sm) * -1);
+        padding-inline: var(--page-gutter-sm);
+    }
+
+    .categoryChips::-webkit-scrollbar {
+        display: none;
+    }
+
+    .chip {
+        flex-shrink: 0;
+    }
+
+    .connectorGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .drawer__header,
+    .drawer__body {
+        padding-inline: var(--space-4);
+    }
+}

@@ -1,0 +1,47 @@
+# Aisty Community: everything runs on your infrastructure.
+#
+#   cp .env.example .env
+#   openssl rand -base64 32        # put this in MASTER_KEY
+#   docker compose up -d
+#
+# Put a TLS-terminating reverse proxy in front of `app` and set APP_URL to the
+# public URL people will use.
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-aisty}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-aisty}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-aisty} -d ${POSTGRES_DB:-aisty}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    expose:
+      - "5432"
+
+  app:
+    image: ghcr.io/aistyai/aisty-community:${AISTY_VERSION:-latest}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_URL: ${APP_URL:?set APP_URL in .env}
+      DATABASE_URL: postgres://${POSTGRES_USER:-aisty}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-aisty}
+      MASTER_KEY: ${MASTER_KEY:?generate with openssl rand -base64 32}
+      BOOTSTRAP_OWNER_EMAIL: ${BOOTSTRAP_OWNER_EMAIL:-}
+      SESSION_CACHE_TTL_SECONDS: ${SESSION_CACHE_TTL_SECONDS:-14400}
+      WORKER_CONCURRENCY: ${WORKER_CONCURRENCY:-3}
+      AGENT_MAX_STEPS: ${AGENT_MAX_STEPS:-12}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "${BIND_ADDR:-127.0.0.1}:${PORT:-8080}:8080"
+
+volumes:
+  db-data:

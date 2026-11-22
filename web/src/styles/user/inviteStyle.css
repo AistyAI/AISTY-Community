@@ -1,0 +1,150 @@
+/* INVITE ACCEPT / DECLINE PAGE */
+
+.invitePage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--bg-surface, #f8fafc);
+  padding: 24px;
+}
+
+.inviteCard {
+  background: var(--bg-white, #ffffff);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  padding: 48px 40px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+}
+
+.inviteCardWide {
+  max-width: 500px;
+}
+
+.inviteLogo {
+  margin-bottom: 32px;
+}
+
+.inviteLogo svg {
+  height: 32px;
+  width: auto;
+}
+
+.inviteTitle {
+  font-family: var(--title-font-family, sans-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary, #1a202c);
+  margin: 0 0 8px;
+}
+
+.inviteSubtitle {
+  font-size: 15px;
+  color: var(--text-muted, #718096);
+  margin: 0 0 28px;
+  line-height: 1.55;
+}
+
+.inviteAuth {
+  margin-bottom: 16px;
+}
+
+/* Re-use Hanko component overrides from login */
+.inviteAuth hanko-auth::part(container) {
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  padding: 0;
+}
+
+.inviteLoading {
+  font-size: 15px;
+  color: var(--text-muted, #718096);
+  margin: 0;
+}
+
+/* Success / Error icons */
+
+.inviteSuccessIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--primary-color, #ff9f1c);
+  color: var(--third-color, #001233);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.inviteErrorIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.inviteMessage {
+  font-size: 15px;
+  color: var(--text-secondary, #4a5568);
+  margin: 0 0 28px;
+  line-height: 1.55;
+}
+
+.inviteMessageError {
+  color: #dc2626;
+}
+
+/* Buttons */
+
+.inviteBtn {
+  display: inline-block;
+  padding: 12px 36px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.inviteBtn:hover {
+  opacity: 0.9;
+}
+
+.inviteBtn:active {
+  transform: scale(0.98);
+}
+
+.inviteBtnPrimary {
+  background: var(--primary-color, #ff9f1c);
+  color: var(--third-color, #001233);
+}
+
+.inviteBtnSecondary {
+  background: var(--bg-surface, #f0f0f0);
+  color: var(--text-secondary, #4a5568);
+}
+
+/* Responsive */
+
+@media (max-width: 520px) {
+  .inviteCard {
+    padding: 36px 24px;
+  }
+
+  .inviteTitle {
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,196 @@
+
+
+/* DANGER ZONE */
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-radius: 16px;
+}
+
+.settings-page h2 {
+  margin: 0;
+  margin-bottom: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.settings-tabs {
+  display: flex;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 16px;
+}
+
+.settings-tab {
+  background: transparent;
+  border: none;
+  padding: 10px 14px 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.settings-tab.is-active {
+  color: var(--text-primary);
+  border-color: var(--primary-color);
+}
+
+.tab-panel {
+  background: var(--bg-white);
+  border-radius: 14px;
+}
+
+.tab-animate {
+  animation: fadeSlide 220ms ease;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.company-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.company-form input, .company-form textarea, .company-form select {
+  padding: 11px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  width: auto;
+  background: var(--bg-white);
+  color: var(--text-primary);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.company-form input:focus, .company-form textarea:focus, .company-form select:focus {
+  outline: none;
+  border-color: var(--focus-color);
+  box-shadow: var(--focus-shadow);
+}
+
+.company-form button {
+  margin-top: 8px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: var(--primary-color);
+  color: var(--bg-white);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 20px var(--primary-color-light);
+}
+
+/* Delete Modal */
+.deleteModal {
+  background: var(--bg-white);
+  border-radius: var(--radius-2xl);
+  padding: 28px 32px;
+  width: min(440px, 92vw);
+  box-shadow: var(--shadow-xl);
+}
+
+.deleteModal h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.deleteModal p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancelBtn {
+  border: 1px solid var(--border-color);
+  background: var(--bg-white);
+  color: var(--text-secondary);
+  padding: 9px 18px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.cancelBtn:hover {
+  background: var(--bg-surface);
+  border-color: var(--border-color-strong);
+}
+
+.confirmDeleteBtn {
+  border: none;
+  background: var(--danger-color);
+  color: #fff;
+  padding: 9px 18px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.confirmDeleteBtn:hover {
+  background: var(--danger-color-dark);
+}
+/* Enterprise settings tables */
+
+.enterprise {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 900px;
+}
+
+/* Member assignments */
+
+.statusPill {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: none;
+    border-radius: var(--radius-pill);
+    padding: 2px 8px;
+    background: var(--bg-muted);
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.statusPill--active,
+.statusPill--accepted {
+    background: var(--success-bg);
+    color: var(--success-color-dark);
+}
+
+.statusPill--pending,
+.statusPill--invited {
+    background: var(--warning-bg);
+    color: var(--warning-color-dark);
+}
+
+/* Aisty Free: the company tab holds the workspace name only */
+.company-locked { margin-top: 1.5rem; max-width: 760px; }
+.settings-page .company-form { max-width: 560px; }
+.tab-panel { background: transparent; border-radius: 0; }
+.settings-page .company-form .btn { align-self: flex-start; width: auto; margin-top: 0.25rem; box-shadow: none; }

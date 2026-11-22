@@ -1,0 +1,41 @@
+/* Targeted refinements to shared pages, imported after brand.css. */
+
+/* Goals & Tickets */
+.goalsTickets__searchBox { height: 34px; padding: 0 10px; background: #fff; border-color: var(--hairline-strong); border-radius: var(--radius-md); }
+.goalsTickets__emptyState { border: 1px solid var(--hairline) !important; background: var(--slab); border-radius: var(--radius-xl); }
+
+/* Integrations */
+.connectorSection__title { font-size: 0.85rem; font-weight: 600; color: var(--graphite); }
+.connectorCard__action { color: var(--ink); font-weight: 600; }
+.connectorCard--available .connectorCard__action::after { content: none; }
+
+/* Settings */
+.settings-tab.is-active { color: var(--ink); }
+
+/* Chat: the first screen of a new conversation */
+.chatEmpty { margin: auto; max-width: 560px; padding: 2rem 1rem; text-align: left; }
+.chatEmpty h2 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; letter-spacing: -0.015em; margin: 0 0 0.5rem; }
+.chatEmpty p { margin: 0 0 1.25rem; color: var(--graphite); font-size: 0.92rem; line-height: 1.55; }
+.chatEmpty__prompts { display: grid; gap: 0.5rem; }
+.chatEmpty__prompts button {
+  text-align: left; border: 1px solid var(--hairline); background: #fff; border-radius: var(--radius-lg);
+  padding: 0.7rem 0.9rem; font-size: 0.88rem; color: var(--ink); cursor: pointer; transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+.chatEmpty__prompts button:hover { border-color: var(--hairline-strong); background: var(--slab); }
+
+/* Sign in: ink panel, the claim and a customer's words. Nothing decorative. */
+.loginBranding { background: var(--ink) !important; justify-content: center !important; border-radius: var(--radius-xl) !important; }
+.loginBranding::before, .loginBranding::after { display: none !important; }
+.loginBrandingContent h1 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; max-width: 18ch; }
+.loginTestimonial { border-left: 2px solid var(--signal); padding-left: 1.1rem; background: none !important; border-radius: 0 !important; box-shadow: none !important; }
+.loginTestimonial blockquote { color: #d6d8dc; font-size: 0.98rem; line-height: 1.65; margin: 0 0 1rem; }
+.loginFormHeader h2 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.015em; }
+
+/* Team */
+.team-invite-btn { height: 34px; padding: 0 0.9rem; font-size: 0.85rem; font-weight: 550; background: var(--ink); box-shadow: none; border-radius: var(--radius-md); }
+.team-invite-btn:hover { background: var(--ink-soft); transform: none; box-shadow: none; }
+.team-invite-btn__icon { font-weight: 500; }
+.ipAccess { max-width: none !important; }
+.ipAccess__add, .ipAccess__list { max-width: 760px; }
+.goalsTickets__emptyState { min-height: 0 !important; padding: 2.5rem 1.5rem !important; }
+.goalsTickets__emptyState h3 { font-family: var(--font-display); font-weight: 600; }

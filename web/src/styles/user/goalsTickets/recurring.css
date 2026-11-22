@@ -1,0 +1,258 @@
+/* Recurring Tasks view */
+.recurringTasks {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.recurringTasks__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 1rem;
+}
+
+.recurringTasks__header h3 {
+    margin: 0 0 4px;
+}
+
+.recurringTasks__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.recurringTasks__table th,
+.recurringTasks__table td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.recurringTasks__table th {
+    background: var(--bg-subtle, #f7f7f9);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-secondary, #666);
+}
+
+.recurringTasks__table tr.is-paused td {
+    opacity: 0.55;
+}
+
+.recurringTasks__title {
+    font-weight: 600;
+}
+
+.recurringTasks__cron {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    background: var(--bg-subtle, #f3f4f6);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.recurringTasks__status {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.recurringTasks__status--active {
+    background: rgba(16, 185, 129, 0.12);
+    color: #047857;
+}
+
+.recurringTasks__status--paused {
+    background: rgba(107, 114, 128, 0.16);
+    color: #4b5563;
+}
+
+/* This template's plan was approved on a previous run, so later cycles with the same plan go ahead without asking. */
+.recurringTasks__planApproved {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--success-bg);
+    color: var(--success-color-dark);
+    cursor: help;
+}
+
+.recurringTasks__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.recurringTasks__btn {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-white);
+    color: var(--text-primary);
+    padding: 4px 10px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.recurringTasks__btn:hover {
+    background: var(--info-bg-light);
+}
+
+.recurringTasks__btn--danger {
+    color: #b00020;
+    border-color: #f5c2c7;
+}
+
+.recurringTasks__btn--danger:hover {
+    background: #fde2e4;
+}
+
+/* Edit popup */
+.recurringEditPopup {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: min(480px, 92vw);
+    padding: 4px;
+}
+
+.recurringEditPopup h3 {
+    margin: 0;
+}
+
+.recurringEditPopup__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 13px;
+}
+
+.recurringEditPopup__field input,
+.recurringEditPopup__field select {
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+}
+
+.recurringEditPopup__checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.recurringEditPopup__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+/* AI notice in modal footers. */
+
+.goalsTickets__aiNoticeFooter {
+    flex: 1;
+    margin: 0;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    color: var(--text-secondary);
+}
+
+/* Chat-parity caveat appended to the footer notice. */
+.goalsTickets__aiNoticeFooterCaveat {
+    color: var(--text-muted, #8a8f98);
+}
+
+.goalsTickets__aiResponseActions {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.goalsTickets__aiResponseActions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md, 6px);
+    background: transparent;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.goalsTickets__aiResponseActions button:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: var(--accent-color-light);
+}
+
+.goalsTickets__credentialNote {
+    margin: 0 0 8px;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.goalsTickets__credentialNote--faint {
+    margin-bottom: 0.35rem;
+    color: var(--text-faint);
+}
+
+.goalsTickets__credentialNote code {
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: var(--accent-color-light);
+    font-size: 0.72rem;
+}
+
+/* Ticket drawer, narrow viewports */
+@media (max-width: 640px) {
+    .goalsTickets__modal--large {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .goalsTickets__detailRow {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 4px;
+        align-items: flex-start;
+    }
+
+    .goalsTickets__modalFooter {
+        flex-wrap: wrap;
+    }
+}
+/* Each half of a two-up row is a full form group in its own right, so its label/control spacing matches the single-column fields around it. */
+.goalsTickets__formCol {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+}
+
+.goalsTickets__formCol .goalsTickets__formSelect,
+.goalsTickets__formCol .goalsTickets__formInput {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.goalsTickets__formHint {
+    margin: 6px 0 0;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+}

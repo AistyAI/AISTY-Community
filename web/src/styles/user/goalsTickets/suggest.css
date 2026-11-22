@@ -1,0 +1,291 @@
+/* SUGGEST TICKETS BUTTON */
+
+.goalsTickets__suggestBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--accent-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    white-space: nowrap;
+}
+
+.goalsTickets__suggestBtn:hover:not(:disabled) {
+    background: var(--accent-color);
+    color: var(--bg-white);
+    box-shadow: 0 2px 8px var(--accent-color-shadow);
+}
+
+.goalsTickets__suggestBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* SUGGEST TICKETS MODAL */
+
+.suggestModal {
+    max-width: 680px;
+    width: 95%;
+    max-height: 85vh;
+}
+
+.suggestModal__body {
+    padding: 0 !important;
+}
+
+/* Loading state */
+.suggestModal__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    text-align: center;
+    gap: 12px;
+}
+
+.suggestModal__loading p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.suggestModal__loadingHint {
+    color: var(--text-faint) !important;
+    font-size: 0.8rem !important;
+}
+
+.suggestModal__spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--accent-color);
+    border-radius: 50%;
+    animation: suggestSpin 0.8s linear infinite;
+    margin-bottom: 8px;
+}
+
+@keyframes suggestSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* Empty state */
+.suggestModal__empty {
+    padding: 48px 24px;
+    text-align: center;
+}
+
+.suggestModal__empty p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Controls bar */
+.suggestModal__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-surface);
+}
+
+.suggestModal__count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.suggestModal__controlBtn {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background var(--transition-normal);
+}
+
+.suggestModal__controlBtn:hover {
+    background: var(--accent-color-bg);
+}
+
+/* Goals list */
+.suggestModal__goalsList {
+    overflow-y: auto;
+    max-height: calc(85vh - 180px);
+}
+
+/* Goal group */
+.suggestModal__goalGroup {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.suggestModal__goalGroup:last-child {
+    border-bottom: none;
+}
+
+/* Goal header */
+.suggestModal__goalHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background var(--transition-normal);
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.suggestModal__goalHeader:hover {
+    background: var(--bg-surface-alt);
+}
+
+.suggestModal__goalHeader--selected {
+    background: var(--bg-surface);
+}
+
+.suggestModal__goalCheck {
+    padding-top: 2px;
+    flex-shrink: 0;
+}
+
+.suggestModal__goalCheck input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--accent-color);
+}
+
+.suggestModal__goalInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.suggestModal__goalTitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.suggestModal__goalDesc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    line-height: 1.4;
+}
+
+.suggestModal__newBadge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: none;
+    flex-shrink: 0;
+}
+
+.suggestModal__existingBadge {
+    font-size: 0.7rem;
+    color: var(--text-faint);
+    margin-top: 2px;
+}
+
+.suggestModal__ticketCount {
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding-top: 2px;
+}
+
+/* Tickets under a goal */
+.suggestModal__ticketsList {
+    padding-left: 26px;
+}
+
+.suggestModal__ticketItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background var(--transition-normal);
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.suggestModal__ticketItem:last-child {
+    border-bottom: none;
+}
+
+.suggestModal__ticketItem:hover {
+    background: var(--bg-surface);
+}
+
+.suggestModal__ticketItem--selected {
+    background: var(--bg-white);
+}
+
+.suggestModal__ticketCheck {
+    padding-top: 2px;
+    flex-shrink: 0;
+}
+
+.suggestModal__ticketCheck input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    accent-color: var(--accent-color);
+}
+
+.suggestModal__ticketInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.suggestModal__ticketTitle {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.suggestModal__ticketDesc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .suggestModal {
+        max-width: 100%;
+        width: 100%;
+        max-height: 95vh;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .suggestModal__ticketsList {
+        padding-left: 16px;
+    }
+
+    .goalsTickets__suggestBtn {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+}

@@ -1,0 +1,295 @@
+.auditTrail {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* Hero header */
+.auditTrail__hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 24px;
+    border-radius: var(--radius-2xl, 16px);
+}
+
+.auditTrail__heroText {
+    max-width: 640px;
+}
+
+.auditTrail__heroText h2 {
+    margin: 4px 0 6px;
+    font-size: 1.5rem;
+}
+
+.auditTrail__heroText p {
+    margin: 0;
+    color: var(--text-secondary, #5b6172);
+    line-height: 1.55;
+}
+
+.auditTrail__heroStats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+}
+
+/* Filters card */
+.auditTrail__filters {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(140px, 1fr)) auto;
+    gap: 14px;
+    align-items: end;
+    padding: 16px 18px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-2xl, 16px);
+    box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 900px) {
+    .auditTrail__filters {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+    }
+    .auditTrail__hero {
+        flex-direction: column;
+    }
+    .auditTrail__heroStats {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+.auditTrail__filters label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: none;
+    color: var(--text-secondary, #6b7280);
+}
+
+.auditTrail__filters input,
+.auditTrail__filters select {
+    padding: 7px 11px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md, 8px);
+    font-size: 14px;
+    background: var(--bg-white);
+    color: var(--text-primary);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auditTrail__filters input:focus,
+.auditTrail__filters select:focus {
+    outline: none;
+    border-color: var(--accent, #4f46e5);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.auditTrail__clearBtn {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-white);
+    color: var(--text-secondary, #6b7280);
+    padding: 7px 12px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    height: 34px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.auditTrail__clearBtn:hover {
+    background: var(--info-bg-light, #f0f4ff);
+    color: var(--text-primary);
+}
+
+/* Table */
+.auditTrail__tableWrap {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-2xl, 16px);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.auditTrail__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.auditTrail__table th,
+.auditTrail__table td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.auditTrail__table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.auditTrail__table th {
+    background: var(--bg-subtle, #f7f8fb);
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--text-secondary, #6b7280);
+    text-transform: none;
+}
+
+.auditTrail__table tbody tr:hover {
+    background: var(--info-bg-light, #f5f7ff);
+}
+
+.auditTrail__when {
+    white-space: nowrap;
+    color: var(--text-secondary, #5b6172);
+    font-variant-numeric: tabular-nums;
+}
+
+.auditTrail__rolePill {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: capitalize;
+    background: rgba(107, 114, 128, 0.14);
+    color: #374151;
+}
+
+/* States: loading + empty */
+.auditTrail__loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 28px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-2xl, 16px);
+    color: var(--text-secondary, #6b7280);
+}
+
+.auditTrail__spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border-color);
+    border-top-color: var(--accent, #4f46e5);
+    border-radius: 50%;
+    animation: auditSpin 0.7s linear infinite;
+}
+
+@keyframes auditSpin {
+    to { transform: rotate(360deg); }
+}
+
+.auditTrail__empty {
+    padding: 36px 28px;
+    text-align: center;
+    background: var(--bg-white);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-2xl, 16px);
+}
+
+.auditTrail__empty p {
+    margin: 4px 0;
+}
+
+/* Pagination */
+.auditTrail__pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 6px;
+    font-size: 13px;
+    color: var(--text-secondary, #6b7280);
+}
+
+.auditTrail__pagination > div {
+    display: flex;
+    gap: 8px;
+}
+
+.auditTrail__pageBtn {
+    appearance: none;
+    border: 1px solid var(--border-color);
+    background: var(--bg-white);
+    color: var(--text-primary);
+    padding: 6px 14px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.auditTrail__pageBtn:hover:not(:disabled) {
+    background: var(--info-bg-light, #f5f7ff);
+    border-color: var(--text-primary);
+}
+
+.auditTrail__pageBtn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* Extract popup */
+.auditExtractPopup {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: min(440px, 92vw);
+    padding: 4px;
+}
+
+.auditExtractPopup h3 {
+    margin: 0;
+}
+
+.auditExtractPopup__field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: none;
+    color: var(--text-secondary, #6b7280);
+}
+
+.auditExtractPopup__field input {
+    padding: 7px 11px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--text-primary);
+}
+
+.auditExtractPopup__field input:focus {
+    outline: none;
+    border-color: var(--accent, #4f46e5);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.auditExtractPopup__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 6px;
+}

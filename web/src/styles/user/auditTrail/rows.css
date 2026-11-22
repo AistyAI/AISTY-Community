@@ -1,0 +1,219 @@
+/* Friendly action column */
+
+.auditTrail__describe {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding-left: 10px;
+    border-left: 3px solid var(--border-color);
+    text-align: left;
+}
+
+/* Summary above, internal action code below; stacked, hard left, so the column lines up under its "What happened" header. */
+.auditTrail__describeBody {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    min-width: 0;
+    flex: 1;
+}
+
+.auditTrail__describeText {
+    font-weight: 500;
+    color: var(--text-primary, #1f2a44);
+    line-height: 1.35;
+}
+
+.auditTrail__describeCode {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    color: var(--text-secondary, #6b7280);
+    background: transparent;
+    padding: 0;
+}
+
+/* Category-tinted accent stripe on the left of each row's description */
+.auditTrail__describe--integration { border-left-color: #6366f1; }
+.auditTrail__describe--kpi         { border-left-color: #10b981; }
+.auditTrail__describe--team        { border-left-color: #f59e0b; }
+.auditTrail__describe--ticket      { border-left-color: #0ea5e9; }
+.auditTrail__describe--recurring   { border-left-color: #a855f7; }
+.auditTrail__describe--company     { border-left-color: #38bdf8; }
+.auditTrail__describe--file        { border-left-color: #22c55e; }
+.auditTrail__describe--audit       { border-left-color: #f43f5e; }
+.auditTrail__describe--other       { border-left-color: var(--border-color); }
+
+/* Technical column: condensed method + path + ip stacked */
+
+.auditTrail__describe--product { border-left-color: #d97706; }
+
+.auditTrail__describe--goal { border-left-color: #06b6d4; }
+
+/* Override the category-tinted left border with the verb tint; color-by-verb is what the user is scanning for. */
+.auditTrail__describe--created  { border-left-color: #10b981; }
+.auditTrail__describe--updated  { border-left-color: #3b82f6; }
+.auditTrail__describe--deleted  { border-left-color: #ef4444; }
+.auditTrail__describe--executed { border-left-color: #a855f7; }
+.auditTrail__describe--exported { border-left-color: #f59e0b; }
+.auditTrail__describe--other    { border-left-color: var(--border-color); }
+
+/* Subtle tinted row background so the verb is recognisable at a glance even without focusing on the dot or border. */
+.auditTrail__row--created td:first-child  { box-shadow: inset 3px 0 0 #10b981; }
+.auditTrail__row--updated td:first-child  { box-shadow: inset 3px 0 0 #3b82f6; }
+.auditTrail__row--deleted td:first-child  { box-shadow: inset 3px 0 0 #ef4444; }
+.auditTrail__row--executed td:first-child { box-shadow: inset 3px 0 0 #a855f7; }
+.auditTrail__row--exported td:first-child { box-shadow: inset 3px 0 0 #f59e0b; }
+.auditTrail__row--flagged td:first-child  { box-shadow: inset 3px 0 0 var(--primary-color); }
+
+/* section tabs (Workspace activity | Aisty Link compliance) */
+.auditTrail__tabs { display: flex; gap: 4px; margin: 4px 0 16px; border-bottom: 1px solid var(--border-color, #e6e6ee); }
+.auditTrail__tab {
+  appearance: none; border: none; background: none; cursor: pointer;
+  font: inherit; font-size: 14px; font-weight: 600; color: var(--text-muted);
+  padding: 10px 14px; border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.auditTrail__tab:hover { color: var(--text-primary); }
+.auditTrail__tab--active { color: var(--text-primary); border-bottom-color: var(--primary-color); }
+
+/* compliance pills */
+.auditTrail__sevPill, .auditTrail__modePill {
+  display: inline-block; font-size: 11px; font-weight: 700; text-transform: none; padding: 3px 8px; border-radius: 999px; line-height: 1; white-space: nowrap;
+}
+.auditTrail__sevPill--low    { background: #eef1f5; color: #5b6472; }
+.auditTrail__sevPill--medium { background: #fef3cd; color: #92600a; }
+.auditTrail__sevPill--high   { background: #fde2e1; color: #c0353a; }
+.auditTrail__modePill--flag    { background: #e6effc; color: #2563a8; }
+.auditTrail__modePill--enforce { background: #fbe4d5; color: #b4530f; }
+
+/* Authorisation: who let the AI act, or that nobody was asked. */
+.auditTrail__authPill {
+  display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .01em;
+  padding: 3px 8px; border-radius: 999px; line-height: 1.35; max-width: 26ch;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle;
+}
+.auditTrail__authPill--human    { background: #e4f3e8; color: #256b39; }
+.auditTrail__authPill--auto     { background: #fef3cd; color: #92600a; }
+.auditTrail__authPill--declined { background: #fde2e1; color: #c0353a; }
+.auditTrail__authPill--pending  { background: #eef1f5; color: #5b6472; }
+
+/* AI action detail (expandable rows) Only ai.approval.* and ai.tool.* rows expand, in both the workspace feed and the compliance feed. */
+.auditTrail__row--expandable {
+  cursor: pointer;
+}
+
+.auditTrail__row--expandable:hover {
+  background: var(--bg-muted, #f6f7f9);
+}
+
+.auditTrail__expandBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--text-muted, #8a8f98);
+  transition: transform 0.15s ease, color 0.15s ease;
+  transform: rotate(0deg);
+  /* Fixed box so the chevron occupies the same width open or closed, and sits on the first line of the summary rather than floating above it. */
+  flex-shrink: 0;
+  width: 16px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auditTrail__expandBtn:hover {
+  color: var(--text-primary, #0f172a);
+}
+
+.auditTrail__expandBtn.is-open {
+  transform: rotate(90deg);
+}
+
+/* The detail panel sat flush against the row that opened it with no top padding, so the approval context read as part of the row above. */
+.auditTrail__detailRow > td {
+  padding: 16px 18px 18px;
+  background: var(--bg-muted, #f6f7f9);
+  box-shadow: inset 0 1px 0 var(--border-color, #e2e8f0);
+}
+
+.auditTrail__detail {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px 32px;
+  text-align: left;
+}
+
+.auditTrail__detailItem {
+  min-width: 0;
+  padding-left: 12px;
+  border-left: 2px solid var(--border-color, #e2e8f0);
+}
+
+.auditTrail__detailItem dt {
+  font-size: 0.7rem;
+  text-transform: none;
+  color: var(--text-muted, #8a8f98);
+  margin-bottom: 2px;
+}
+
+.auditTrail__detailItem dd {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-primary, #1c1e21);
+  overflow-wrap: anywhere;
+}
+
+.auditTrail__detailLink {
+  color: var(--accent-color, #2563a8);
+  text-decoration: none;
+}
+
+.auditTrail__detailLink:hover {
+  text-decoration: underline;
+}
+
+.auditTrail__riskPill {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  text-transform: capitalize;
+}
+
+.auditTrail__riskPill--low      { background: #eef1f5; color: #5b6472; }
+.auditTrail__riskPill--medium   { background: #fef3cd; color: #92600a; }
+.auditTrail__riskPill--critical { background: #fde2e1; color: #c0353a; }
+
+/* Column geometry: explicit widths so long descriptions don't push other columns around. */
+.auditTrail__table {
+    table-layout: fixed;
+}
+
+.auditTrail__table th,
+.auditTrail__table td {
+    overflow-wrap: anywhere;
+}
+
+.auditTrail__table--workspace col.auditTrail__col--when  { width: 15%; }
+.auditTrail__table--workspace col.auditTrail__col--user  { width: 24%; }
+.auditTrail__table--workspace col.auditTrail__col--role  { width: 11%; }
+.auditTrail__table--workspace col.auditTrail__col--what  { width: 50%; }
+
+.auditTrail__table--compliance col.auditTrail__col--when   { width: 13%; }
+.auditTrail__table--compliance col.auditTrail__col--user   { width: 19%; }
+.auditTrail__table--compliance col.auditTrail__col--source { width: 11%; }
+.auditTrail__table--compliance col.auditTrail__col--what   { width: 29%; }
+.auditTrail__table--compliance col.auditTrail__col--risk   { width: 9%; }
+.auditTrail__table--compliance col.auditTrail__col--auth   { width: 10%; }
+.auditTrail__table--compliance col.auditTrail__col--out    { width: 9%; }
+
+@media (max-width: 900px) {
+    /* Narrow viewports scroll the table instead of crushing the columns. */
+    .auditTrail__tableWrap { overflow-x: auto; }
+    .auditTrail__table { table-layout: auto; min-width: 720px; }
+}

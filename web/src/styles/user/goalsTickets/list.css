@@ -1,0 +1,350 @@
+/* List view: each goal is a coloured group and its tickets are table rows. */
+
+.goalsTickets__listV2 {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 4px 0 24px;
+}
+
+.goalsTickets__listGroup {
+  --group-color: var(--accent-color);
+  background: transparent;
+  border-radius: 8px;
+}
+
+.goalsTickets__listGroupHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 4px 10px;
+  border-bottom: 1px solid var(--border-color-light);
+}
+
+.goalsTickets__listGroupChevron {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--group-color);
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.goalsTickets__listGroupChevron.is-collapsed {
+  transform: rotate(-90deg);
+}
+
+.goalsTickets__listGroupTitle {
+  flex: 1 1 auto;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--group-color);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 4px 6px;
+  outline: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.goalsTickets__listGroupTitle:hover,
+.goalsTickets__listGroupTitle:focus {
+  background: var(--bg-surface);
+  border-color: var(--border-color);
+}
+
+.goalsTickets__listGroupCount {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.goalsTickets__listGroupRemove {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-faint);
+  cursor: pointer;
+  font-size: 13px;
+}
+.goalsTickets__listGroupRemove:hover {
+  background: var(--danger-bg-light);
+  color: var(--danger-color);
+}
+
+.goalsTickets__listTableWrap {
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.goalsTickets__listTable {
+  display: flex;
+  flex-direction: column;
+}
+
+.goalsTickets__listRow {
+  display: grid;
+  grid-template-columns: 6px minmax(220px, 2.4fr) 90px minmax(180px, 2fr) 130px 130px 120px 90px 88px;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border-color-light);
+  background: var(--bg-white);
+  transition: background 0.12s ease;
+  cursor: pointer;
+}
+.goalsTickets__listRow:hover {
+  background: var(--bg-surface);
+}
+.goalsTickets__listRow:last-child {
+  border-bottom: none;
+}
+
+.goalsTickets__listRow--head {
+  background: var(--bg-surface-alt);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: none;
+  color: var(--text-muted);
+  cursor: default;
+}
+.goalsTickets__listRow--head:hover {
+  background: var(--bg-surface-alt);
+}
+
+.goalsTickets__listRow--add {
+  background: var(--bg-surface-alt);
+  cursor: default;
+}
+.goalsTickets__listRow--add:hover {
+  background: var(--bg-surface);
+}
+
+.goalsTickets__listRow--empty {
+  cursor: default;
+}
+
+.goalsTickets__listEmptyMsg {
+  grid-column: 2 / -1;
+  padding: 14px 12px;
+  color: var(--text-faint);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.goalsTickets__listCell {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  min-width: 0;
+}
+
+/* Column 1: coloured left bar (per-row status colour) */
+.goalsTickets__listCell--bar {
+  padding: 0;
+  background: var(--group-color);
+}
+.goalsTickets__listRow--head .goalsTickets__listCell--bar,
+.goalsTickets__listRow--add .goalsTickets__listCell--bar,
+.goalsTickets__listRow--empty .goalsTickets__listCell--bar {
+  background: var(--group-color);
+  opacity: 0.5;
+}
+
+.goalsTickets__listCell--title {
+  font-weight: 500;
+}
+
+.goalsTickets__listMetaText {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+.goalsTickets__listMetaText--faint {
+  color: var(--text-faint);
+}
+
+.goalsTickets__listTitleInput,
+.goalsTickets__listDescInput {
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 3px;
+  padding: 4px 6px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.goalsTickets__listTitleInput { font-weight: 500; }
+.goalsTickets__listDescInput  { color: var(--text-secondary); }
+.goalsTickets__listTitleInput:hover,
+.goalsTickets__listDescInput:hover,
+.goalsTickets__listTitleInput:focus,
+.goalsTickets__listDescInput:focus {
+  background: var(--bg-white);
+  border-color: var(--border-color);
+}
+
+.goalsTickets__listDateInput {
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 3px;
+  padding: 3px 4px;
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  outline: none;
+  font-family: inherit;
+}
+.goalsTickets__listDateInput:hover,
+.goalsTickets__listDateInput:focus {
+  background: var(--bg-white);
+  border-color: var(--border-color);
+}
+.goalsTickets__listCell--due.is-overdue .goalsTickets__listDateInput {
+  color: var(--danger-color);
+  font-weight: 600;
+}
+.goalsTickets__dueDot {
+  display: inline-block;
+  margin-right: 4px;
+  color: var(--danger-color);
+  font-size: 10px;
+}
+
+/* Status and priority pills fill the cell */
+.goalsTickets__listStatusPill,
+.goalsTickets__listPriorityPill {
+  width: calc(100% + 20px);
+  margin: -8px -10px;
+  min-height: 38px;
+  border: none;
+  border-radius: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-align-last: center;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0 8px;
+  outline: none;
+  transition: filter 0.12s ease;
+}
+.goalsTickets__listStatusPill:hover,
+.goalsTickets__listPriorityPill:hover {
+  filter: brightness(1.08);
+}
+.goalsTickets__listStatusPill option,
+.goalsTickets__listPriorityPill option {
+  font-weight: 500;
+}
+
+.goalsTickets__listRepeatBadge {
+  background: var(--primary-color-light);
+  color: var(--primary-color-hover);
+  border: 1px solid var(--primary-color);
+  border-radius: 12px;
+  padding: 3px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.goalsTickets__listRepeatBadge:hover {
+  background: var(--primary-color);
+  color: var(--bg-white);
+}
+
+.goalsTickets__listCell--actions {
+  gap: 4px;
+  justify-content: flex-end;
+  padding: 4px 6px;
+}
+
+.goalsTickets__listIconBtn {
+  width: 26px;
+  height: 26px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.goalsTickets__listIconBtn:hover {
+  background: var(--bg-surface);
+  border-color: var(--border-color);
+}
+.goalsTickets__listIconBtn--approve { color: var(--accent-color); }
+.goalsTickets__listIconBtn--approve:hover { background: var(--accent-color-light); border-color: var(--accent-color); }
+.goalsTickets__listIconBtn--stop { color: var(--warning-color); }
+.goalsTickets__listIconBtn--stop:hover { background: var(--warning-bg); border-color: var(--warning-color); }
+.goalsTickets__listIconBtn--remove:hover { background: var(--danger-bg-light); border-color: var(--danger-color); color: var(--danger-color); }
+
+.goalsTickets__listAddBtn {
+  grid-column: 2 / -1;
+  text-align: left;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  border-radius: 0;
+}
+.goalsTickets__listAddBtn:hover {
+  background: var(--bg-surface);
+  color: var(--accent-color);
+}
+
+/* Responsive collapses on narrow screens */
+@media (max-width: 1100px) {
+  .goalsTickets__listRow {
+    grid-template-columns: 6px minmax(180px, 2fr) minmax(140px, 1.6fr) 110px 120px 100px 88px;
+  }
+  .goalsTickets__listCell--meta,
+  .goalsTickets__listCell--repeat {
+    display: none;
+  }
+}
+@media (max-width: 780px) {
+  .goalsTickets__listRow {
+    grid-template-columns: 6px 1fr 110px 110px 80px;
+  }
+  .goalsTickets__listCell--desc,
+  .goalsTickets__listCell--priority {
+    display: none;
+  }
+}
+
+/* Inline-flex alignment for buttons/links that now pair an SVG icon with text */
+.goalsTickets__createMenuOption,
+.goalsTickets__listRepeatBadge,
+.goalsTickets__modalCreateBtn,
+.goalsTickets__modalCancelBtn,
+.goalsTickets__attachmentLink,
+.goalsTickets__viewBtn,
+.goalsTickets__listIconBtn,
+.goalsTickets__kanbanMenuBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.goalsTickets__dueDot {
+    display: inline-flex;
+    align-items: center;
+}

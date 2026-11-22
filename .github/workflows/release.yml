@@ -1,0 +1,106 @@
+name: Release
+
+# Push a tag like v0.2.0 to test, publish the image and create the GitHub release.
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    needs: ci
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+      attestations: write
+    env:
+      IMAGE: ghcr.io/aistyai/aisty-community
+      DOCKERHUB_IMAGE: ${{ vars.DOCKERHUB_IMAGE }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tag matches package versions
+        run: |
+          v="${GITHUB_REF_NAME#v}"
+          for p in api/package.json web/package.json; do
+            pv=$(node -p "require('./$p').version")
+            [ "$pv" = "$v" ] || { echo "$p is $pv, tag is $v"; exit 1; }
+          done
+
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Docker Hub is optional: set the DOCKERHUB_IMAGE variable and the DOCKERHUB_USERNAME / DOCKERHUB_TOKEN secrets.
+      - if: env.DOCKERHUB_IMAGE != ''
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.IMAGE }}
+            ${{ env.DOCKERHUB_IMAGE }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value=latest,enable=${{ !contains(github.ref_name, '-') }}
+          labels: |
+            org.opencontainers.image.title=Aisty Community
+            org.opencontainers.image.vendor=Aisty
+            org.opencontainers.image.url=https://aisty.ai
+            org.opencontainers.image.licenses=LicenseRef-Aisty-Community-1.0
+
+      - id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          provenance: mode=max
+          sbom: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Attestations need a public repository (or GitHub Enterprise) and are skipped otherwise.
+      - if: ${{ !github.event.repository.private }}
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ${{ env.IMAGE }}
+          subject-digest: ${{ steps.build.outputs.digest }}
+          push-to-registry: true
+
+      - name: GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          prerelease=""
+          case "$GITHUB_REF_NAME" in *-*) prerelease="--prerelease" ;; esac
+          cat > notes.md <<EOF
+          \`\`\`bash
+          docker pull ${IMAGE}:${GITHUB_REF_NAME#v}
+          \`\`\`
+
+          Or download \`docker-compose.yml\` and \`.env.example\` below and follow the [quick start](https://github.com/${GITHUB_REPOSITORY}#quick-start).
+          EOF
+          cp .env.example env.example
+          gh release create "$GITHUB_REF_NAME" --title "Aisty Community $GITHUB_REF_NAME" \
+            --generate-notes --notes-file notes.md $prerelease \
+            docker-compose.yml "env.example#.env.example"

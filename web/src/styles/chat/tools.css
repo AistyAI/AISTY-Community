@@ -1,0 +1,142 @@
+/* Sibling of the bubble so it doesn't inherit markdown list and heading rules. */
+.chat-message__approval {
+  margin: 8px 0 4px;
+  margin-right: auto;
+  max-width: 85%;
+}
+/* The tools a reply was built from. */
+.chat-steps {
+  margin: 2px 0 6px;
+  margin-right: auto;
+  max-width: 85%;
+}
+
+.chat-steps__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 9px 3px 6px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  background: transparent;
+  color: var(--text-muted, #64748b);
+  font-size: 0.78rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition-fast, all 0.15s ease);
+}
+
+.chat-steps__toggle:hover {
+  background: var(--bg-muted, #f1f5f9);
+  color: var(--text-secondary, #475569);
+}
+
+.chat-steps__caret {
+  display: inline-block;
+  transition: transform 0.15s ease;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.chat-steps__caret[data-open="true"] { transform: rotate(90deg); }
+
+/* A failure count is the one thing worth showing while collapsed. */
+.chat-steps__failures {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--error-bg, #fef2f2);
+  color: var(--error-color, #dc2626);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.chat-steps__list {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0 0 0 4px;
+  border-left: 2px solid var(--border-color, #e2e8f0);
+}
+
+.chat-step { margin: 0; }
+
+.chat-step__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary, #475569);
+  font-size: 0.8rem;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--radius-md, 8px);
+}
+
+.chat-step__head:disabled { cursor: default; }
+.chat-step__head:hover:not(:disabled) { background: var(--bg-muted, #f1f5f9); }
+
+.chat-step__icon { display: inline-flex; color: var(--text-faint, #94a3b8); }
+.chat-step--ok .chat-step__icon { color: var(--accent-color, #16a34a); }
+.chat-step--error .chat-step__icon { color: var(--error-color, #dc2626); }
+
+.chat-step__label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-step__status { color: var(--error-color, #dc2626); font-size: 0.72rem; }
+.chat-step--declined .chat-step__status,
+.chat-step--revised .chat-step__status { color: var(--text-muted, #64748b); }
+
+.chat-step__risk {
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  color: var(--text-muted, #64748b);
+  font-size: 0.68rem;
+}
+
+.chat-step__chevron { color: var(--text-faint, #94a3b8); font-size: 0.85rem; }
+
+.chat-step__detail {
+  padding: 2px 8px 10px 29px;
+  font-size: 0.76rem;
+}
+
+.chat-step__tool { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+
+.chat-step__tool code,
+.chat-step__args {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--bg-muted, #f1f5f9);
+  color: var(--text-secondary, #475569);
+  font-size: 0.72rem;
+  word-break: break-all;
+}
+
+/* Scrolled rather than clipped: a truncated result that looks complete is worse than one that visibly runs on. */
+.chat-step__result {
+  margin: 0;
+  padding: 8px 10px;
+  max-height: 220px;
+  overflow: auto;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  background: var(--bg-muted, #f1f5f9);
+  color: var(--text-secondary, #475569);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media (max-width: 560px) {
+  .chat-steps { max-width: 100%; }
+  .chat-step__detail { padding-left: 12px; }
+}

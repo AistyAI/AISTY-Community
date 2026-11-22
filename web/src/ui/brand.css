@@ -1,0 +1,82 @@
+/* Brand layer: imported after styles/theme.css; hairlines instead of shadows. */
+
+:root {
+  --ink: #14161a;
+  --ink-soft: #22262c;
+  --graphite: #565b64;
+  --pewter: #82878f;
+  --paper: #fcfcfd;
+  --slab: #f4f5f6;
+  --hairline: #e3e5e9;
+  --hairline-strong: #d2d5da;
+  --signal: #ff9f1c;
+  --signal-deep: #e07f00;
+  --signal-wash: #fff6e8;
+
+  --primary-color: var(--signal);
+  --primary-color-hover: #f59300;
+  --primary-color-light: rgba(255, 159, 28, 0.1);
+  --primary-color-shadow: rgba(255, 159, 28, 0.18);
+  --secondary-color: #ffbf69;
+  --third-color: var(--ink);
+
+  /* The hosted theme's teal accent becomes ink: one accent colour, not two. */
+  --accent-color: var(--ink);
+  --accent-color-hover: var(--ink-soft);
+  --accent-color-dark: #000;
+  --accent-color-light: var(--slab);
+  --accent-color-shadow: rgba(20, 22, 26, 0.12);
+
+  --text-primary: var(--ink);
+  --text-secondary: var(--graphite);
+  --text-muted: var(--pewter);
+  --text-faint: #9aa0a8;
+
+  --background-color: var(--paper);
+  --bg-white: #ffffff;
+  --bg-surface: var(--slab);
+  --bg-surface-alt: #f8f8f9;
+  --bg-muted: #eceef1;
+
+  --border-color: var(--hairline);
+  --border-color-strong: var(--hairline-strong);
+  --border-color-light: #eceef1;
+
+  --shadow-xs: 0 1px 0 rgba(20, 22, 26, 0.02);
+  --shadow-sm: 0 1px 1px rgba(20, 22, 26, 0.03);
+  --shadow-md: 0 1px 2px rgba(20, 22, 26, 0.04);
+  --shadow-lg: 0 2px 6px rgba(20, 22, 26, 0.05);
+  --shadow-xl: 0 16px 40px -16px rgba(20, 22, 26, 0.22);
+
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 5px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-2xl: 10px;
+
+  --focus-color: var(--signal-deep);
+  --focus-shadow: 0 0 0 3px rgba(255, 159, 28, 0.22);
+
+  --page-title-size: 1.5rem;
+  --page-title-weight: 600;
+  --section-title-size: 1rem;
+  --overlay-bg: rgba(20, 22, 26, 0.42);
+}
+
+body { background: var(--paper); color: var(--ink); }
+input, textarea, select { background-color: #fff; font-family: var(--font-body); color: var(--ink); }
+
+/* Page titles in the display face, at one size across every view. */
+.goalsTickets h2:first-child, .settings-page > h2, .team-page h2, .integrationsPage h2,
+.auditTrail h2, .chatHistoryPage h1, .chatHistoryPage h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/* Buttons inside the app: ink for the primary action, amber reserved for state. */
+.dashboardContainer .btn.primary { background-color: var(--ink); color: #fff; border-radius: var(--radius-md); }
+.dashboardContainer .btn.primary:hover:not(:disabled) { background-color: var(--ink-soft); transform: none; }
+.dashboardContainer .btn.secondary { background: #fff; color: var(--ink); border: 1px solid var(--hairline-strong); }
+.dashboardContainer .btn.secondary:hover:not(:disabled) { background: var(--slab); }

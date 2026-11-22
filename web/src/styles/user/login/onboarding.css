@@ -1,0 +1,420 @@
+/* Onboarding wizard and invite pages. */
+
+.success {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-lg);
+  background: var(--success-bg-light);
+  color: var(--success-color-dark);
+  font-size: 13px;
+  border: 1px solid var(--success-bg);
+}
+
+.actions .btn.secondary {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.actions .btn.secondary:hover {
+    border-color: var(--border-color-strong);
+    background: var(--bg-surface);
+}
+
+.onboarding-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--third-color);
+  font-family: var(--title-font-family);
+  background: var(--bg-surface);
+  padding: 40px 24px;
+  box-sizing: border-box;
+}
+
+.onboarding-step, .onboarding-progress {
+    width: 100%;
+    max-width: 580px;
+    margin-inline: auto;
+}
+
+.onboarding-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.onboarding-title > div {
+    flex: 1;
+}
+
+.onboarding-title h2 {
+    margin: 0 0 4px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--third-color);
+}
+
+.onboarding-title p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+.onboarding-step {
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2xl);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for the step container */
+.onboarding-step::-webkit-scrollbar {
+  width: 5px;
+}
+
+.onboarding-step::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.onboarding-step::-webkit-scrollbar-thumb {
+  background: var(--border-color-strong);
+  border-radius: var(--radius-pill);
+}
+
+.onboarding-step::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+.onboarding-step label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.onboarding-step h2 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--third-color);
+}
+
+.onboarding-step p {
+  margin: 0 0 4px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 6px;
+  font-size: 13px;
+}
+
+input,
+textarea {
+  padding: 12px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  background: var(--bg-white);
+  color: var(--third-color);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--focus-color);
+  box-shadow: var(--focus-shadow);
+}
+
+.actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  padding-top: 20px;
+  width: 100%;
+}
+
+.actions .btn {
+  min-width: 120px;
+}
+
+.error {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-lg);
+  background: var(--danger-bg-light);
+  color: var(--danger-color-dark);
+  font-size: 13px;
+  border: 1px solid var(--danger-bg);
+}
+
+.kpis ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 10px 0 0;
+  color: var(--text-secondary);
+}
+
+.goals {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+}
+
+.goal-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.goal-card,
+.ticket-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 18px;
+  margin: 0;
+  transition: border-color var(--transition-fast);
+}
+
+.goal-card:hover,
+.ticket-card:hover {
+  border-color: var(--border-color-strong);
+}
+
+.goal-card h4,
+.ticket-card h4 {
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+
+.goal-card input,
+.goal-card textarea,
+.ticket-card input,
+.ticket-card textarea {
+  margin-top: 0;
+  background: var(--bg-white);
+}
+
+.goal-card label,
+.ticket-card label {
+  margin-bottom: 12px;
+}
+
+.goal-card label:last-of-type,
+.ticket-card label:last-of-type {
+  margin-bottom: 14px;
+}
+
+.goal-card .btn,
+.ticket-card .btn {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: none;
+  gap: 10px;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.onboarding-progress {
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.progress-track {
+  height: 3px;
+  width: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--border-color);
+  overflow: hidden;
+  position: absolute;
+  z-index: 0;
+  top: 6px;
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--primary-color);
+  transition: width var(--transition-slow);
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+  position: relative;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-step .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--border-color-strong);
+  border: 2px solid var(--bg-surface);
+  transition: background var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal);
+}
+
+.progress-step .dot.active {
+  background: var(--primary-color);
+  box-shadow: 0 0 0 4px var(--primary-color-shadow);
+  transform: scale(1.1);
+}
+
+.step-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 8px 0 8px;
+  width: 100%;
+}
+
+.pill {
+  padding: 9px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background: var(--bg-white);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.pill:hover {
+  background: var(--bg-muted);
+  border-color: var(--border-color-strong);
+  color: var(--text-primary);
+}
+
+.pill.active {
+  background: var(--third-color);
+  color: var(--bg-white);
+  border-color: var(--third-color);
+  font-weight: 600;
+}
+
+/* Onboarding secondary text */
+.onboarding-step .secondary-text {
+  color: var(--text-muted);
+  font-size: 14px;
+  text-align: center;
+  margin: 8px 0;
+}
+
+/* Onboarding empty state */
+.onboarding-empty {
+  text-align: center;
+  padding: 28px 16px;
+  color: var(--text-muted);
+  font-size: 14px;
+  background: var(--bg-surface);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-xl);
+}
+
+/* Responsive */
+@media (max-width: 680px) {
+  .onboarding-container {
+    padding: 24px 16px;
+  }
+
+  .onboarding-step, .onboarding-progress {
+    max-width: 100%;
+  }
+
+  .onboarding-step {
+    padding: 24px 20px;
+    border-radius: var(--radius-xl);
+  }
+
+  .step-label {
+    font-size: 0;
+    width: 0;
+    overflow: hidden;
+  }
+
+  .progress-step .dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .pill-grid {
+    gap: 8px;
+  }
+
+  .pill {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+}

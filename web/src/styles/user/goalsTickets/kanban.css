@@ -1,0 +1,380 @@
+/* KANBAN COLUMN */
+
+.goalsTickets__kanbanColumn {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border-color);
+    overflow: hidden;
+    min-height: 500px;
+    /* Fixed track: wide enough for a ticket title to read on two lines, narrow enough that three or four fit on a laptop. */
+    flex: 0 0 288px;
+    scroll-snap-align: start;
+}
+
+.goalsTickets__kanbanColumn:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.goalsTickets__kanbanColumn:last-child {
+    border-right: none;
+    border-radius: 0 8px 8px 0;
+}
+
+.goalsTickets__kanbanColumnHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 10px 12px;
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    font-size: 0.8rem;
+    user-select: none;
+}
+
+.goalsTickets__kanbanColumnLabel {
+    color: var(--text-muted);
+    text-transform: none;
+    font-size: 0.75rem;
+}
+
+.goalsTickets__kanbanColumnCount {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-muted);
+    color: var(--text-faint);
+    border-radius: 999px;
+    min-width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.goalsTickets__kanbanColumnBody {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 4px;
+    overflow-y: auto;
+    flex: 1;
+    background: var(--bg-surface);
+}
+
+.goalsTickets__kanbanEmpty {
+    color: var(--text-faint);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 2rem 0.5rem;
+}
+
+/* KANBAN CARD */
+
+.goalsTickets__kanbanCard {
+    display: flex;
+    flex-direction: column;
+    /* Card internals were on an ad-hoc 6px/2px/10px/12px mix that left the title crowding the id above it and the footer nearly touching the border. */
+    gap: var(--space-2, 8px);
+    background: var(--bg-white);
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--border-color);
+    padding: var(--space-3, 12px);
+    cursor: pointer;
+    transition: background var(--transition-fast), box-shadow var(--transition-fast),
+                border-color var(--transition-fast);
+    position: relative;
+}
+
+.goalsTickets__kanbanCard:hover {
+    background: #f0f4f8;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+}
+
+.goalsTickets__kanbanCardId {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-faint);
+    letter-spacing: 0.3px;
+}
+
+.goalsTickets__kanbanCardGoal {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    text-transform: none;
+    padding: 2px 6px;
+    background: var(--accent-color-light);
+    border-radius: 3px;
+    width: fit-content;
+}
+
+.goalsTickets__kanbanCardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.goalsTickets__kanbanCardTitle {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    line-height: 1.35;
+    border: none;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* The AI has a plan for this task and is waiting on a person. */
+.goalsTickets__kanbanHeldBadge {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--warning-bg);
+    color: var(--warning-color-dark);
+    font-weight: 600;
+    font-size: 0.6rem;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+/* Card hover actions */
+.goalsTickets__kanbanCardMenu {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.goalsTickets__kanbanCard:hover .goalsTickets__kanbanCardMenu {
+    opacity: 1;
+}
+
+.goalsTickets__kanbanMenuBtn {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    line-height: 1;
+    transition: all var(--transition-fast);
+}
+
+.goalsTickets__kanbanMenuBtn:hover {
+    background: var(--bg-muted);
+    border-color: var(--border-color-strong);
+}
+
+.goalsTickets__kanbanCardFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* The parent's gap already spaces this from the title; the extra 2px only made the footer sit a hair off the rhythm of the rest of the card. */
+    margin-top: 0;
+    gap: var(--space-2, 8px);
+    /* A long goal name and a badge were colliding rather than wrapping. */
+    flex-wrap: wrap;
+    row-gap: var(--space-1, 4px);
+}
+
+.goalsTickets__kanbanCardFooterLeft {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.goalsTickets__kanbanCardFooterRight {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+.goalsTickets__kanbanAddBtn {
+    background: none;
+    border: 1px dashed var(--border-color);
+    color: var(--text-faint);
+    font-weight: 500;
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 4px;
+    transition: all var(--transition-fast);
+    margin: 2px 0;
+}
+
+.goalsTickets__kanbanAddBtn:hover {
+    border-color: var(--border-color-strong);
+    color: var(--text-muted);
+    background: var(--bg-white);
+}
+
+.goalsTickets__empty {
+    margin: 0;
+    padding: 2rem;
+    border-radius: 12px;
+    background: var(--bg-muted);
+    color: var(--text-secondary);
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+/* GOAL CARD */
+
+.goalsTickets__goalCard {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-white);
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+}
+
+.goalsTickets__goalCard:hover {
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+    transform: translateY(-2px);
+}
+
+.goalsTickets__goalCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color-light);
+}
+
+.goalsTickets__goalCardInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.goalsTickets__goalCardTitle {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 8px 10px;
+    background: transparent;
+    transition: border-color var(--transition-normal), background var(--transition-normal);
+    cursor: text;
+}
+
+.goalsTickets__goalCardTitle:hover {
+    border-color: var(--border-color-strong);
+}
+
+.goalsTickets__goalCardTitle:focus {
+    outline: none;
+    border-color: var(--focus-color);
+    background: var(--bg-surface);
+    box-shadow: var(--focus-shadow);
+}
+
+.goalsTickets__goalCardDesc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 8px 10px;
+    background: transparent;
+    transition: border-color var(--transition-normal), background var(--transition-normal);
+    min-height: 60px;
+    resize: vertical;
+    cursor: text;
+}
+
+.goalsTickets__goalCardDesc:hover {
+    border-color: var(--border-color-strong);
+}
+
+.goalsTickets__goalCardDesc:focus {
+    outline: none;
+    border-color: var(--focus-color);
+    background: var(--bg-surface);
+    box-shadow: var(--focus-shadow);
+}
+
+.goalsTickets__goalCardTarget {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 8px 10px;
+    background: transparent;
+    transition: border-color var(--transition-normal), background var(--transition-normal);
+    cursor: text;
+}
+
+.goalsTickets__goalCardTarget:hover {
+    border-color: var(--border-color-strong);
+}
+
+.goalsTickets__goalCardTarget:focus {
+    outline: none;
+    border-color: var(--focus-color);
+    background: var(--bg-surface);
+    box-shadow: var(--focus-shadow);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1024px) {
+
+    .goalsTickets__kanbanColumn {
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Height only: the column keeps its fixed width so the board scrolls. */
+    .goalsTickets__kanbanColumn {
+        min-height: 350px;
+    }
+
+    .goalsTickets__modal,
+    .goalsTickets__modal--large {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+
+    .goalsTickets__kanbanColumn {
+        min-height: 300px;
+    }
+
+    .goalsTickets__toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .goalsTickets__toolbarLeft {
+        order: 2;
+    }
+
+    .goalsTickets__toolbarRight {
+        order: 1;
+        justify-content: flex-end;
+    }
+}

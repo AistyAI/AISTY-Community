@@ -1,0 +1,330 @@
+/* Settings ▸ AI Approvals. */
+
+.aiApprovals {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 720px;
+}
+
+.aiApprovals__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.aiApprovals__title {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+
+.aiApprovals__lede {
+    margin: 0;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+/* Level cards */
+.aiApprovals__levels {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-white);
+}
+
+.aiApprovals__level {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color-light);
+    transition: background-color var(--transition-fast);
+}
+
+.aiApprovals__level:last-child {
+    border-bottom: none;
+}
+
+.aiApprovals__level:hover:not(.is-readonly) {
+    background: var(--bg-surface);
+}
+
+.aiApprovals__level.is-selected {
+    background: var(--primary-color-light);
+}
+
+.aiApprovals__level.is-readonly {
+    cursor: default;
+}
+
+/* The native input stays in the DOM for keyboard and screen-reader support; .aiApprovals__dot is what is actually seen. */
+.aiApprovals__radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.aiApprovals__dot {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    border-radius: var(--radius-pill);
+    border: 2px solid var(--border-color-strong);
+    background: var(--bg-white);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.aiApprovals__level.is-selected .aiApprovals__dot {
+    border-color: var(--primary-color);
+    box-shadow: inset 0 0 0 3px var(--primary-color);
+}
+
+.aiApprovals__radio:focus-visible + .aiApprovals__dot {
+    box-shadow: var(--focus-shadow);
+}
+
+.aiApprovals__level.is-selected .aiApprovals__radio:focus-visible + .aiApprovals__dot {
+    box-shadow: inset 0 0 0 3px var(--primary-color), var(--focus-shadow);
+}
+
+.aiApprovals__content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.aiApprovals__row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.aiApprovals__label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.aiApprovals__recommended {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    letter-spacing: 0.02em;
+}
+
+.aiApprovals__summary {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+/* Footer */
+.aiApprovals__warning {
+    margin: 0;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    background: var(--warning-bg-light);
+    border: 1px solid var(--warning-btn-border);
+    color: var(--warning-color-dark);
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.aiApprovals__footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.aiApprovals__saved {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.aiApprovals__readonly {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Per-level gauge Three segments, weakest tier first, filled when that tier is held. */
+.aiApprovals__gauge {
+    display: flex;
+    gap: 3px;
+    margin-left: auto;
+    align-self: center;
+    flex-shrink: 0;
+    padding-left: 12px;
+}
+
+.aiApprovals__gaugeSeg {
+    width: 18px;
+    height: 5px;
+    border-radius: var(--radius-pill);
+    background: var(--border-color);
+    transition: background-color var(--transition-fast);
+}
+
+.aiApprovals__gaugeSeg.is-held {
+    background: var(--primary-color);
+}
+
+/* Consequence panel Answers the one question the page exists for. */
+.aiApprovals__effect {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--bg-surface);
+    padding: 14px 16px;
+}
+
+.aiApprovals__effectTitle {
+    margin: 0 0 10px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.aiApprovals__effectTitle strong {
+    color: var(--text-primary);
+}
+
+.aiApprovals__tiers {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.aiApprovals__tier {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+}
+
+/* Fixed width so the two states line up in a column and the difference between held and unheld is scannable without reading the words. */
+.aiApprovals__tierState {
+    flex-shrink: 0;
+    width: 74px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: none;
+}
+
+.aiApprovals__tier.is-held .aiApprovals__tierState {
+    color: var(--primary-color);
+}
+
+.aiApprovals__tierBody {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.aiApprovals__tierLabel {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.aiApprovals__tierDetail {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+}
+
+@media (max-width: 560px) {
+    .aiApprovals__tier {
+        flex-direction: column;
+        gap: 2px;
+    }
+    .aiApprovals__tierState {
+        width: auto;
+    }
+    .aiApprovals__gauge {
+        padding-left: 8px;
+    }
+}
+
+/* Aisty Workspace refinement */
+.aiApprovals { max-width: 1100px; }
+.aiApprovals__intro { margin-bottom: 1.5rem; }
+.aiApprovals__title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 0.35rem; }
+.aiApprovals__lede { color: var(--graphite); font-size: 0.9rem; line-height: 1.55; max-width: 68ch; margin: 0; }
+
+.aiApprovals__layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.9fr); gap: 1.5rem; align-items: start; }
+
+.aiApprovals__levels { display: grid; gap: 0.5rem; border: 0; background: none; border-radius: 0; overflow: visible; }
+.aiApprovals__level {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.9rem;
+  padding: 0.95rem 1.05rem; border: 1px solid var(--hairline); border-radius: 8px; background: #fff;
+  cursor: pointer; transition: border-color 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+.aiApprovals__level:hover:not(.is-readonly) { border-color: var(--hairline-strong); }
+.aiApprovals__level.is-selected { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); background: #fff; }
+.aiApprovals__level.is-readonly { cursor: default; }
+.aiApprovals__dot { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--hairline-strong); background: #fff; box-shadow: none; }
+.aiApprovals__level.is-selected .aiApprovals__dot { border: 5px solid var(--ink); }
+.aiApprovals__label { font-weight: 600; font-size: 0.92rem; color: var(--ink); }
+.aiApprovals__summary { display: block; margin-top: 0.2rem; font-weight: 400; font-size: 0.85rem; color: var(--graphite); line-height: 1.45; }
+.aiApprovals__recommended {
+  margin-left: 0.5rem; font-size: 0.72rem; font-weight: 600; color: var(--signal-deep);
+  background: var(--signal-wash); border-radius: 4px; padding: 0.1rem 0.4rem;
+}
+.aiApprovals__gauge { display: flex; gap: 3px; }
+.aiApprovals__gaugeSeg { width: 14px; height: 18px; border-radius: 3px; background: #eceef1; }
+.aiApprovals__gaugeSeg.is-held { background: var(--signal); }
+
+.aiApprovals__footer { display: flex; align-items: center; gap: 0.9rem; margin-top: 1.1rem; }
+.aiApprovals__footer .btn:disabled { opacity: 0.35; }
+.aiApprovals__saved { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.82rem; color: var(--pewter); }
+.aiApprovals__saved svg { width: 14px; height: 14px; color: #15803d; }
+.aiApprovals__warning { margin: 1rem 0 0; font-size: 0.85rem; color: #7f1d1d; background: #fdf3f3; border-left: 2px solid #dc2626; padding: 0.6rem 0.85rem; border-radius: 0 5px 5px 0; }
+.aiApprovals__readonly { margin-top: 1rem; font-size: 0.85rem; color: var(--pewter); }
+
+.aiApprovals__effect {
+  position: sticky; top: 1.5rem; margin: 0; padding: 1.1rem 1.15rem 0.6rem;
+  border: 1px solid var(--hairline); border-radius: 8px; background: var(--slab);
+}
+.aiApprovals__effectTitle { margin: 0 0 0.75rem; font-size: 0.85rem; font-weight: 500; color: var(--graphite); }
+.aiApprovals__effectTitle strong { color: var(--ink); font-weight: 600; }
+.aiApprovals__tiers { list-style: none; margin: 0; padding: 0; display: grid; }
+.aiApprovals__tier { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 0.75rem 0; border-top: 1px solid var(--hairline); }
+.aiApprovals__tierBody { display: grid; gap: 0.15rem; }
+.aiApprovals__tierLabel { font-weight: 600; font-size: 0.88rem; color: var(--ink); }
+.aiApprovals__tierDetail { font-size: 0.8rem; color: var(--graphite); line-height: 1.45; }
+.aiApprovals__tierState {
+  flex: none; font-size: 0.75rem; font-weight: 600; border-radius: 4px; padding: 0.15rem 0.45rem;
+  color: #166534; background: #e9f6ed;
+}
+.aiApprovals__tier.is-held .aiApprovals__tierState { color: #7a4100; background: var(--signal-wash); }
+
+@media (max-width: 960px) {
+  .aiApprovals__layout { grid-template-columns: 1fr; }
+  .aiApprovals__effect { position: static; }
+}
+.aiApprovals__level, .aiApprovals__level:last-child { border: 1px solid var(--hairline); }
+.aiApprovals__level.is-selected, .aiApprovals__level.is-selected:last-child { border-color: var(--ink); }
+.aiApprovals__dot { box-sizing: border-box; margin-top: 0; }
+.aiApprovals__level.is-selected .aiApprovals__dot { border: 5px solid var(--ink); box-shadow: none; }
+.aiApprovals__level.is-selected .aiApprovals__radio:focus-visible + .aiApprovals__dot { box-shadow: var(--focus-shadow); }
+.aiApprovals__scope { margin-top: 1rem; }
+.aiApprovals__scope .upgradeNudge { flex-wrap: wrap; align-items: flex-start; }
+.aiApprovals__scope .upgradeNudge span { flex-basis: calc(100% - 2rem); min-width: 0; }
+.aiApprovals__scope .upgradeNudge button { margin-left: calc(14px + .55rem); }

@@ -1,0 +1,152 @@
+/* CHAT HISTORY FULL PAGE (Claude-style) */
+
+.chatHistoryPage {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	min-height: 80vh;
+}
+
+/* Header */
+
+.chatHistoryPage__header {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.chatHistoryPage__titleRow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.chatHistoryPage__title {
+	font-size: 1.75rem;
+	font-weight: 700;
+	margin: 0;
+	color: var(--text-primary);
+}
+
+.chatHistoryPage__titleRow .btn.primary {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.chatHistoryPage__search input {
+	width: 100%;
+	padding: 10px 14px;
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-lg);
+	font-size: 0.95rem;
+	background: var(--bg-white);
+	color: var(--text-primary);
+	outline: none;
+	transition: border-color var(--transition-fast);
+}
+
+.chatHistoryPage__search input::placeholder {
+	color: var(--text-faint);
+}
+
+.chatHistoryPage__search input:focus {
+	border-color: var(--accent-color);
+	box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.08);
+}
+
+.chatHistoryPage__count {
+	font-size: 0.85rem;
+	color: var(--text-muted);
+	font-weight: 500;
+}
+
+/* List */
+
+.chatHistoryPage__list {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.chatHistoryPage__item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 14px 16px;
+	border-radius: var(--radius-lg);
+	cursor: pointer;
+	transition: background var(--transition-fast);
+}
+
+.chatHistoryPage__item:hover {
+	background: var(--bg-muted);
+}
+
+.chatHistoryPage__itemContent {
+	flex: 1;
+	min-width: 0;
+}
+
+.chatHistoryPage__itemTitle {
+	margin: 0 0 4px 0;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: var(--text-primary);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.chatHistoryPage__itemMeta {
+	margin: 0;
+	font-size: 0.8rem;
+	color: var(--text-muted);
+}
+
+.chatHistoryPage__itemDelete {
+	flex-shrink: 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 6px;
+	border-radius: var(--radius-md);
+	color: var(--text-faint);
+	opacity: 0;
+	transition: all var(--transition-fast);
+}
+
+.chatHistoryPage__item:hover .chatHistoryPage__itemDelete {
+	opacity: 1;
+}
+
+.chatHistoryPage__itemDelete:hover {
+	background: var(--error-bg);
+	color: var(--error-color);
+}
+
+/* Empty state */
+
+.chatHistoryPage__empty {
+	text-align: center;
+	padding: 48px 24px;
+	color: var(--text-muted);
+	font-size: 0.95rem;
+}
+
+/* Responsive */
+
+@media (max-width: 640px) {
+	.chatHistoryPage {
+		padding: 24px 16px;
+	}
+
+	.chatHistoryPage__title {
+		font-size: 1.5rem;
+	}
+
+	.chatHistoryPage__itemDelete {
+		opacity: 1;
+	}
+}

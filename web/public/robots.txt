@@ -1,0 +1,8 @@
+# https://www.robotstxt.org/robotstxt.html
+#
+# This is the Aisty workspace app (app.aisty.ai and tenant subdomains).
+# Workspaces are private customer environments and must never be indexed.
+# The public marketing site is the separate `landing` deployment and has
+# its own robots.txt.
+User-agent: *
+Disallow: /

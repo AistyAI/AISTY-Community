@@ -1,0 +1,445 @@
+/* SLIDE-IN DETAIL PANEL */
+
+.goalsTickets__modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    z-index: 1000;
+    animation: goalsTicketsScrimIn 0.18s ease-out;
+}
+
+@keyframes goalsTicketsScrimIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.goalsTickets__modal {
+    background: var(--bg-white);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+    width: 420px;
+    max-width: 90%;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    animation: slideInRight 0.25s ease-out;
+    border-left: 1px solid var(--border-color);
+}
+
+.goalsTickets__modal--large {
+    width: 560px;
+}
+
+.goalsTickets__modal--center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 560px;
+    max-height: 80vh;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
+    animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -48%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.goalsTickets__modalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-white);
+    flex-shrink: 0;
+}
+
+.goalsTickets__modalHeaderMeta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+/* Which column the ticket is in, stated in the panel that edits it. */
+.goalsTickets__statusPill {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: none;
+    white-space: nowrap;
+    color: var(--pill-color, var(--text-secondary));
+    background: color-mix(in srgb, var(--pill-color, #64748b) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--pill-color, #64748b) 30%, transparent);
+}
+
+.goalsTickets__modalHeader h2 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.goalsTickets__modalClose {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: color var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.goalsTickets__modalClose:hover {
+    color: var(--text-primary);
+}
+
+.goalsTickets__modalBody {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* The ticket title is the heading of this panel, not just another field. */
+.goalsTickets__titleInput {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+    padding: 10px 12px;
+}
+
+.goalsTickets__srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.goalsTickets__detailNote {
+    margin: 4px 0 10px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.goalsTickets__detailSection {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.goalsTickets__detailSectionTitle {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: none;
+    color: var(--text-faint);
+    margin: 0 0 8px;
+}
+
+.goalsTickets__detailGrid {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--bg-white);
+}
+
+/* Fixed label column, flexible control column. */
+.goalsTickets__detailRow {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    align-items: center;
+    column-gap: 14px;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border-color-light);
+    min-height: 44px;
+}
+
+.goalsTickets__detailRow:last-child {
+    border-bottom: none;
+}
+
+.goalsTickets__detailLabel {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+.goalsTickets__detailValue {
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    line-height: 1.4;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Controls fill the value column so their right edges align with each other and with the description box below. */
+.goalsTickets__detailControl {
+    width: 100%;
+    min-width: 0;
+}
+
+/* The priority colour rides on a custom property rather than an inline `color`, so the disabled and focus states can still override it. */
+.goalsTickets__prioritySelect {
+    color: var(--priority-color, var(--text-primary));
+    font-weight: 600;
+}
+
+/* Execution state is reported by the engine, not chosen by the user, so it reads as a status not a control. */
+.goalsTickets__execPill {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    white-space: nowrap;
+    background: rgba(100, 116, 139, 0.14);
+    color: #475569;
+}
+
+.goalsTickets__execPill--awaiting_approval { background: rgba(161, 98, 7, 0.14);  color: #a16207; }
+.goalsTickets__execPill--in_progress       { background: rgba(59, 130, 246, 0.14); color: #2563eb; }
+.goalsTickets__execPill--completed         { background: rgba(16, 185, 129, 0.16); color: #047857; }
+.goalsTickets__execPill--failed            { background: rgba(239, 68, 68, 0.14);  color: #b91c1c; }
+.goalsTickets__execPill--cancelled         { background: rgba(156, 163, 175, 0.18); color: #4b5563; }
+.goalsTickets__execPill--expired           { background: rgba(245, 158, 11, 0.16); color: #b45309; }
+
+.goalsTickets__formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.goalsTickets__formGroup:last-of-type {
+    margin-bottom: 0;
+}
+
+.goalsTickets__formGroup label {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: none;
+}
+
+.goalsTickets__formSelect,
+.goalsTickets__formInput {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    background: var(--bg-white);
+    transition: all var(--transition-normal);
+    font-family: inherit;
+}
+
+.goalsTickets__formSelect:focus,
+.goalsTickets__formInput:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: var(--focus-shadow);
+}
+
+.goalsTickets__formSelect {
+    cursor: pointer;
+}
+
+.goalsTickets__formTextarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 96px;
+    line-height: 1.5;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    background: var(--bg-white);
+    font-family: inherit;
+    resize: vertical;
+    transition: all var(--transition-normal);
+}
+
+.goalsTickets__formTextarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: var(--focus-shadow);
+}
+
+.goalsTickets__formError {
+    margin: 0;
+    color: var(--danger-color);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.goalsTickets__modalFooter {
+    display: flex;
+    gap: 0.5rem;
+    padding: 10px 16px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-surface);
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+.goalsTickets__modalCancelBtn,
+.goalsTickets__modalCreateBtn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-size: 0.85rem;
+    border: none;
+    white-space: nowrap;
+}
+
+.goalsTickets__modalCancelBtn {
+    background: var(--bg-white);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color-strong);
+}
+
+.goalsTickets__modalCancelBtn:hover {
+    background: var(--bg-surface-alt);
+    border-color: var(--text-faint);
+}
+
+.goalsTickets__modalDangerBtn {
+    color: var(--danger-color);
+    border-color: var(--danger-border-light, #fecaca);
+}
+
+.goalsTickets__modalDangerBtn:hover {
+    background: var(--danger-bg-light, #fef2f2);
+    border-color: var(--danger-color);
+    color: var(--danger-color-dark, #b91c1c);
+}
+
+/* Push Delete away from Close so the destructive button is not the one the pointer lands on by accident. */
+.goalsTickets__modalFooter .goalsTickets__modalDangerBtn {
+    margin-right: auto;
+}
+
+.goalsTickets__modalCreateBtn {
+    background: var(--accent-color);
+    color: var(--bg-white);
+}
+
+.goalsTickets__modalCreateBtn:hover:not(:disabled) {
+    background: var(--accent-color-hover);
+    box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
+}
+
+.goalsTickets__modalCreateBtn:disabled {
+    background: var(--border-color-strong);
+    color: var(--text-faint);
+    cursor: not-allowed;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    .goalsTickets__goalsList {
+        grid-template-columns: 1fr;
+    }
+
+    .goalsTickets__modal,
+    .goalsTickets__modal--large {
+        width: 95%;
+        max-width: 100%;
+        max-height: 90vh;
+    }
+
+    .goalsTickets__modalHeader {
+        padding: 1rem;
+    }
+
+    .goalsTickets__modalHeader h2 {
+        font-size: 1.25rem;
+    }
+
+    .goalsTickets__modalBody {
+        padding: 1rem;
+    }
+
+    .goalsTickets__modalFooter {
+        padding: 0.75rem 1rem;
+        flex-direction: column-reverse;
+    }
+
+    .goalsTickets__modalCancelBtn,
+    .goalsTickets__modalCreateBtn {
+        width: 100%;
+    }
+
+    .goalsTickets__emptyState {
+        min-height: 300px;
+        padding: 2rem;
+    }
+
+    .goalsTickets__emptyStateContent h3 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .goalsTickets__goalCard {
+        padding: 1rem;
+    }
+
+    .goalsTickets__goalCardTitle {
+        font-size: 1rem;
+    }
+
+    .goalsTickets__formGroup {
+        margin-bottom: 1rem;
+    }
+}

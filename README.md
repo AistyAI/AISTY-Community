@@ -22,7 +22,8 @@ change it wants to make waits for a person first, and everything it did is
 recorded in an append-only, hash-chained audit trail.
 
 It runs on your servers with a model you choose. Sign-in goes through the Aisty
-Identity Service; nothing else leaves your deployment unless you turn it on.
+Identity Service at `aisty-ce.aisty.ai`, which sees the email address each person
+signs in with. Nothing else leaves your deployment unless you turn it on.
 
 ## Quick start
 

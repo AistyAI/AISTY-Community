@@ -25,7 +25,7 @@ const int = (name, fallback) => {
 const isProduction = env("NODE_ENV", "development") === "production";
 
 // Free uses its own Hanko tenant, so a Free session token can't be replayed against hosted Aisty.
-const IDENTITY_URL_PRODUCTION = "https://auth-free.aisty.ai";
+const IDENTITY_URL_PRODUCTION = "https://aisty-ce.aisty.ai";
 
 export const config = {
   isProduction,

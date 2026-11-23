@@ -1,11 +1,13 @@
 {
   "name": "aisty-community-api",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Aisty Community: self-hosted API, ticket worker and agent runtime.",
   "type": "module",
   "license": "SEE LICENSE IN ../LICENSE",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
@@ -15,6 +17,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.12.0",
+    "@fastify/http-proxy": "11.6.6",
     "@fastify/rate-limit": "11.3.0",
     "@fastify/static": "10.1.12",
     "cron-parser": "5.10.6",

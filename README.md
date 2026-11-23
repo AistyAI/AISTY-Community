@@ -21,14 +21,15 @@ agent carries them out across GitHub, Jira, Slack, Gmail and HubSpot. Every
 change it wants to make waits for a person first, and everything it did is
 recorded in an append-only, hash-chained audit trail.
 
-It runs on your servers with a model you choose. Sign-in goes through the Aisty
-Identity Service at `aisty-ce.aisty.ai`, which sees the email address each person
-signs in with. Nothing else leaves your deployment unless you turn it on.
+It runs on your servers with a model you choose, and sign-in runs there too
+([Hanko](https://www.hanko.io), with email codes and passkeys). Nothing leaves
+your deployment unless you turn it on.
 
 ## Quick start
 
-You need Docker with Compose, and a domain behind a TLS-terminating reverse
-proxy (Caddy, nginx, Traefik).
+You need Docker with Compose 2.23 or newer, a domain behind a TLS-terminating
+reverse proxy (Caddy, nginx, Traefik) that forwards everything to port 8080,
+and an SMTP service to send sign-in codes.
 
 ```bash
 mkdir aisty && cd aisty
@@ -36,11 +37,12 @@ curl -fsSLO https://github.com/AistyAI/AISTY-Community/releases/latest/download/
 curl -fsSL -o .env https://github.com/AistyAI/AISTY-Community/releases/latest/download/env.example
 
 openssl rand -base64 32        # put this in MASTER_KEY
-# set APP_URL and POSTGRES_PASSWORD in .env
+openssl rand -hex 32           # put this in HANKO_SECRET_KEY
+# set APP_DOMAIN, POSTGRES_PASSWORD and the SMTP_ settings in .env
 docker compose up -d
 ```
 
-Open `APP_URL` and sign in. The first person to finish setup owns the
+Open `https://APP_DOMAIN`, create an account and sign in. The first person to finish setup owns the
 workspace; set `BOOTSTRAP_OWNER_EMAIL` to reserve that for one address. Setup
 ends by connecting a model. Our partner [kvrun](https://kvrun.com) deploys
 private open-weight models with an OpenAI-compatible endpoint, or you can use
@@ -48,7 +50,8 @@ vLLM, Ollama, OpenAI, Anthropic or Gemini.
 
 The image is `ghcr.io/aistyai/aisty-community`, built for `linux/amd64` and
 `linux/arm64`. Pin `AISTY_VERSION` in `.env` to a release in production, and
-back up `MASTER_KEY` separately from the database.
+back up `MASTER_KEY` separately from the database. Sign-in accounts live in a
+second database, `hanko`, on the same Postgres, so back up both databases.
 
 ### Upgrading
 
@@ -115,8 +118,9 @@ cd api && TEST_DATABASE_URL=postgres://postgres:test@127.0.0.1:5544/aisty_test n
 cd web && npx eslint src && CI=true npx react-scripts test --watchAll=false
 ```
 
-`AISTY_DEV_AUTH` is refused when `NODE_ENV=production`, and production web
-builds always use the Aisty Identity Service.
+`AISTY_DEV_AUTH` is refused when `NODE_ENV=production`. To sign in for real
+during development, run Hanko from `docker-compose.yml` and set
+`AISTY_IDENTITY_URL` to it; the web app reaches it through `/auth`.
 
 ## Layout
 

@@ -16,4 +16,5 @@ watch this repository's releases to hear about fixes.
 ## Scope
 
 In scope: this repository and the `ghcr.io/aistyai/aisty-community` image.
-Hosted Aisty and the Aisty Identity Service are covered by the same address.
+Hosted Aisty is covered by the same address. Report flaws in Hanko itself to
+the [Hanko project](https://github.com/teamhanko/hanko/security).

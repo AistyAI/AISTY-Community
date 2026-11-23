@@ -1,11 +1,22 @@
-# Aisty Community: everything runs on your infrastructure.
+# Aisty Community: everything runs on your infrastructure, sign-in included.
 #
-#   cp .env.example .env
-#   openssl rand -base64 32        # put this in MASTER_KEY
+#   cp .env.example .env               # then fill it in
 #   docker compose up -d
 #
-# Put a TLS-terminating reverse proxy in front of `app` and set APP_URL to the
-# public URL people will use.
+# Needs Docker Compose 2.23 or newer. Put a TLS-terminating reverse proxy in
+# front of `app` for APP_DOMAIN; the app serves sign-in itself under /auth.
+
+x-hanko-env: &hanko-env
+  DATABASE_URL: postgres://${POSTGRES_USER:-aisty}:${POSTGRES_PASSWORD}@db:5432/hanko?sslmode=disable
+  SECRETS_KEYS: ${HANKO_SECRET_KEY:?generate with openssl rand -hex 32}
+  WEBAUTHN_RELYING_PARTY_ID: ${APP_DOMAIN:?set APP_DOMAIN in .env}
+  WEBAUTHN_RELYING_PARTY_ORIGINS: https://${APP_DOMAIN}
+  CORS_ALLOW_ORIGINS: https://${APP_DOMAIN}
+  EMAIL_DELIVERY_FROM_ADDRESS: ${SMTP_FROM:?set SMTP_FROM in .env}
+  EMAIL_DELIVERY_SMTP_HOST: ${SMTP_HOST:?set SMTP_HOST in .env}
+  EMAIL_DELIVERY_SMTP_PORT: ${SMTP_PORT:-587}
+  EMAIL_DELIVERY_SMTP_USER: ${SMTP_USER:-}
+  EMAIL_DELIVERY_SMTP_PASSWORD: ${SMTP_PASSWORD:-}
 
 services:
   db:
@@ -25,23 +36,130 @@ services:
     expose:
       - "5432"
 
+  # One-off: creates the sign-in database, then applies its migrations.
+  hanko-setup:
+    image: postgres:16-alpine
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGUSER: ${POSTGRES_USER:-aisty}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: ${POSTGRES_DB:-aisty}
+    entrypoint: ["sh", "-c", "psql -tAc \"SELECT 1 FROM pg_database WHERE datname = 'hanko'\" | grep -q 1 || psql -c 'CREATE DATABASE hanko'"]
+    restart: "no"
+
+  hanko-migrate:
+    image: ghcr.io/teamhanko/hanko:v3.1.0
+    depends_on:
+      hanko-setup:
+        condition: service_completed_successfully
+    command: ["migrate", "up", "--config", "/etc/hanko/config.yaml"]
+    configs:
+      - source: hanko
+        target: /etc/hanko/config.yaml
+    environment: *hanko-env
+    restart: "no"
+
+  hanko:
+    image: ghcr.io/teamhanko/hanko:v3.1.0
+    restart: unless-stopped
+    depends_on:
+      hanko-migrate:
+        condition: service_completed_successfully
+    command: ["serve", "public", "--config", "/etc/hanko/config.yaml"]
+    configs:
+      - source: hanko
+        target: /etc/hanko/config.yaml
+    environment: *hanko-env
+    healthcheck:
+      test: ["CMD", "/hanko", "isready", "public", "--config", "/etc/hanko/config.yaml"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    expose:
+      - "8000"
+
   app:
     image: ghcr.io/aistyai/aisty-community:${AISTY_VERSION:-latest}
     restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
+      hanko:
+        condition: service_healthy
     environment:
-      APP_URL: ${APP_URL:?set APP_URL in .env}
+      APP_URL: https://${APP_DOMAIN}
       DATABASE_URL: postgres://${POSTGRES_USER:-aisty}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-aisty}
       MASTER_KEY: ${MASTER_KEY:?generate with openssl rand -base64 32}
+      AISTY_IDENTITY_URL: http://hanko:8000
       BOOTSTRAP_OWNER_EMAIL: ${BOOTSTRAP_OWNER_EMAIL:-}
-      SESSION_CACHE_TTL_SECONDS: ${SESSION_CACHE_TTL_SECONDS:-14400}
+      SESSION_CACHE_TTL_SECONDS: ${SESSION_CACHE_TTL_SECONDS:-300}
       WORKER_CONCURRENCY: ${WORKER_CONCURRENCY:-3}
       AGENT_MAX_STEPS: ${AGENT_MAX_STEPS:-12}
       LOG_LEVEL: ${LOG_LEVEL:-info}
     ports:
       - "${BIND_ADDR:-127.0.0.1}:${PORT:-8080}:8080"
+
+configs:
+  # Sign-in settings shared by every install. Per-install values come from .env.
+  hanko:
+    content: |
+      service:
+        name: Aisty Community
+      server:
+        public:
+          address: ":8000"
+        ip:
+          # Only the app container reaches Hanko, and it sets X-Real-IP to the real client address.
+          extractor: x_real_ip
+          trusted_proxies: [10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16]
+      account:
+        allow_signup: true
+        allow_deletion: true
+      email:
+        enabled: true
+        optional: false
+        require_verification: true
+        use_for_authentication: true
+        use_as_login_identifier: true
+        limit: 1
+      email_delivery:
+        enabled: true
+        from_name: Aisty Community
+      password:
+        enabled: false
+      passkey:
+        enabled: true
+        optional: true
+        acquire_on_registration: always
+      username:
+        enabled: false
+      mfa:
+        enabled: true
+        optional: true
+        acquire_on_registration: false
+        acquire_on_login: false
+      saml:
+        enabled: false
+      audit_log:
+        storage:
+          enabled: true
+        retention: 2160h
+      rate_limiter:
+        enabled: true
+        store: in_memory
+      session:
+        lifespan: 12h
+        enable_auth_token_header: true
+        cookie:
+          http_only: true
+          same_site: strict
+          secure: true
+      webauthn:
+        relying_party:
+          display_name: Aisty Community
 
 volumes:
   db-data:

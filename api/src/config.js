@@ -24,9 +24,6 @@ const int = (name, fallback) => {
 
 const isProduction = env("NODE_ENV", "development") === "production";
 
-// Free uses its own Hanko tenant, so a Free session token can't be replayed against hosted Aisty.
-const IDENTITY_URL_PRODUCTION = "https://aisty-ce.aisty.ai";
-
 export const config = {
   isProduction,
   port: int("PORT", 8080),
@@ -34,10 +31,11 @@ export const config = {
   databaseUrl: env("DATABASE_URL", "postgres://aisty:aisty@localhost:5432/aisty"),
   databaseSsl: env("DATABASE_SSL", "false").toLowerCase() === "true",
   masterKey: env("MASTER_KEY", ""),
-  identityUrl: isProduction ? IDENTITY_URL_PRODUCTION : env("AISTY_IDENTITY_URL", IDENTITY_URL_PRODUCTION),
+  // The Hanko sign-in service bundled in docker-compose.yml; the browser reaches it through /auth.
+  identityUrl: env("AISTY_IDENTITY_URL", "http://hanko:8000").replace(/\/+$/, ""),
   // Local development only: accept "dev.<email>" tokens instead of a Hanko session.
   devAuth: !isProduction && env("AISTY_DEV_AUTH", "false").toLowerCase() === "true",
-  sessionCacheSeconds: int("SESSION_CACHE_TTL_SECONDS", 4 * 3600),
+  sessionCacheSeconds: int("SESSION_CACHE_TTL_SECONDS", 300),
   bootstrapOwnerEmail: env("BOOTSTRAP_OWNER_EMAIL", "").toLowerCase(),
   webRoot: env("WEB_ROOT", path.resolve(here, "../../web/build")),
   agent: {

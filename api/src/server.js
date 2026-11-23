@@ -4,6 +4,7 @@ import path from "node:path";
 import Fastify from "fastify";
 import rateLimit from "@fastify/rate-limit";
 import fastifyStatic from "@fastify/static";
+import httpProxy from "@fastify/http-proxy";
 import { config, assertConfig } from "./config.js";
 import { migrate, pool } from "./db.js";
 import { registerAuth } from "./auth.js";
@@ -31,7 +32,7 @@ export async function buildApp({ logger = true } = {}) {
     reply.header("X-Content-Type-Options", "nosniff");
     reply.header("Referrer-Policy", "strict-origin-when-cross-origin");
     reply.header("X-Frame-Options", "DENY");
-    if (req.url.startsWith("/api/")) reply.header("Cache-Control", "no-store");
+    if (req.url.startsWith("/api/") || req.url.startsWith("/auth/")) reply.header("Cache-Control", "no-store");
     return payload;
   });
 
@@ -43,9 +44,9 @@ export async function buildApp({ logger = true } = {}) {
 
   registerAuth(app);
 
-  // Workspace IP allowlist, checked on every API call except health checks.
+  // Workspace IP allowlist, checked on every API and sign-in call except health checks.
   app.addHook("onRequest", async (req, reply) => {
-    if (!req.url.startsWith("/api/") || req.url.startsWith("/api/health")) return;
+    if (!(req.url.startsWith("/api/") || req.url.startsWith("/auth/")) || req.url.startsWith("/api/health")) return;
     if (!(await ipAllowed(req.ip))) {
       reply.code(403).send({ error: "This network is not on the workspace's allowed IP list." });
     }
@@ -66,11 +67,24 @@ export async function buildApp({ logger = true } = {}) {
     await api.register(chatRoutes);
   }, { prefix: "/api" });
 
+  // The bundled Hanko service, on this origin so cookies and passkeys stay first-party.
+  // Hanko rate-limits by X-Real-IP, so set it from the trusted client address and drop anything the client sent.
+  await app.register(httpProxy, {
+    upstream: config.identityUrl,
+    prefix: "/auth",
+    replyOptions: {
+      rewriteRequestHeaders: (req, headers) => {
+        const { "x-forwarded-for": _f, "x-forwarded-host": _h, "x-forwarded-proto": _p, "x-real-ip": _r, ...rest } = headers;
+        return { ...rest, "x-real-ip": req.ip };
+      },
+    },
+  });
+
   // The browser app, built into the same image.
   if (fs.existsSync(path.join(config.webRoot, "index.html"))) {
     await app.register(fastifyStatic, { root: config.webRoot });
     app.setNotFoundHandler((req, reply) => {
-      if (req.url.startsWith("/api/") || req.method !== "GET") return reply.code(404).send({ error: "Not found." });
+      if (req.url.startsWith("/api/") || req.url.startsWith("/auth/") || req.method !== "GET") return reply.code(404).send({ error: "Not found." });
       return reply.header("Cache-Control", "no-cache").sendFile("index.html");
     });
   }

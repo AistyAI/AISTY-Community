@@ -1,7 +1,7 @@
 // Sign-in for Aisty Free runs against the Aisty Identity Service for Free, a Hanko tenant separate from hosted Aisty.
 import { Hanko } from "@teamhanko/hanko-elements";
 
-export const HANKO_API_URL = process.env.REACT_APP_HANKO_API_URL || "https://auth-free.aisty.ai";
+export const HANKO_API_URL = process.env.REACT_APP_HANKO_API_URL || "https://aisty-ce.aisty.ai";
 export const DEV_AUTH = process.env.REACT_APP_DEV_AUTH === "true";
 
 const DEV_KEY = "aisty_free_dev_session";
